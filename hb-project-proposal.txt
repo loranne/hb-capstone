@@ -1,0 +1,38 @@
+## Project Proposal
+
+### Overview
+
+A webapp where users can generate a daily physical therapy routine, based on constraints like time, equipment available, and target area(s).
+
+### Technologies required (besides typical Hackbright tech stack)
+
+- Web scraping (probably Beautiful Soup)
+- Calendar API (2.0)
+
+### Data
+
+- Exercise descriptions, time, equipment needed, target area
+    - Visual reference would be great
+- User needs
+- Routine (list of exercises for the day)
+- Past routines generated
+
+### Roadmap
+
+#### MVP
+
+- Users can view a routine at the push of a button
+- Constraints for routines:
+    - Time
+    - Equipment
+    - Target (leg, ankle, arm, etc.)
+
+#### 2.0
+
+- Calendar (for prompting with reminder)
+- User log-in (maybe?)
+- Remembers previous routines
+
+#### 3.0
+
+- Maybe activity logging (but I think this is feature creep)
