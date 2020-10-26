@@ -26,6 +26,7 @@ A webapp where users can generate a daily physical therapy routine, based on con
     - Time
     - Equipment
     - Target (leg, ankle, arm, etc.)
+- What else do I need here?
 
 #### 2.0
 
