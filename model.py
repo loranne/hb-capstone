@@ -1,9 +1,13 @@
 # Models for Hackbright capstone project: PT Remix
 
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 db = SQLAlchemy()
+
+app = Flask(__name__)
+app.secret_key = 'SECRETKEY'
 
 class Exercise(db.Model):
     """An exercise"""
@@ -130,3 +134,16 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User id={self.user_id} email={self.user_email}>"
+
+
+def connect_to_db(flask_app, db_uri="postgresql:///ptexercises", echo=True):
+    """Connect to the DB"""
+    
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print('Connected to the db!')
