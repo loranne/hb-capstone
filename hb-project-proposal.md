@@ -36,6 +36,7 @@ A webapp where users can generate a daily physical therapy routine, based on con
 - users can view past routines (how far back? is this me shooting myself in the foot?)
 - users can save individual exercises 
 - users can indicate that they've completed a routine
+- convert to React
 
 #### 3.0
 
