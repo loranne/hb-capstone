@@ -1,1 +1,20 @@
-<!-- homepage displays create account and user login -->
+<!-- homepage displays create account and user login options -->
+{% extends 'base.html' %}
+{% block title %}PT Remix - Home{% endblock %}
+
+{% block body %}
+  <h1>Welcome to PT Remix!</h1>
+
+  <div>
+    <form action="/" name="login">
+        <p>
+            Email <input type="text" name="email" required=True>
+        </p>
+        <p>
+            Password <input type="text" name="password" required=True>
+        </p>
+        <input type="submit" name="login" value="Log In">
+        <input type="submit" name="register" value="Register">
+    </form>
+  </div>
+{% endblock %}
