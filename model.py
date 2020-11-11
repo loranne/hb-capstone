@@ -1,13 +1,9 @@
 # Models for Hackbright capstone project: PT Remix
 
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 db = SQLAlchemy()
-
-app = Flask(__name__)
-app.secret_key = 'SECRETKEY'
 
 class Exercise(db.Model):
     """An exercise"""
