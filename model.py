@@ -23,7 +23,7 @@ class Exercise(db.Model):
     equip_req = db.Column(db.Boolean,
                         nullable=False)
     frequency = db.Column(db.Integer)
-    reps = db.Column(db.Integer)
+    # reps = db.Column(db.Integer)
     img = db.Column(db.String)
 
     exercise_injury = db.relationship("ExerciseInjury")
@@ -65,7 +65,7 @@ class InjuryType(db.Model):
                         nullable=False)
     location = db.Column(db.String,
                         nullable=False)
-    description = db.Column(db.String)
+    # description = db.Column(db.String)
 
     exercise_injury = db.relationship("ExerciseInjury")
 
