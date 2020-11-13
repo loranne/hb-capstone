@@ -5,17 +5,17 @@ from flask import (Flask, render_template, request, flash, session,
 from model import connect_to_db
 import os
 import crud
+import secrets
+# StrictUndefined means that it will complain if I try to use something in jinja that I haven't defined
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
-app.secret_key = SECRETKEY
+app.secret_key = secrets.token_urlsafe(16)
 app.jinja_env.undefined = StrictUndefined
 
 @app.route("/")
 def homepage():
     """View Homepage"""
-
-    # view homepage with 
 
     return render_template("homepage.html")
 
@@ -93,3 +93,5 @@ def user_logout():
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(debug=True, host='0.0.0.0')
+
+    # 

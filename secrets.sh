@@ -1,1 +1,1 @@
-export SECRETKEY="ajsdkasdbfjvf;d1234007"
+SECRETKEY="ajsdkasdbfjvf;d1234007"

@@ -1,7 +1,12 @@
 # Models for Hackbright capstone project: PT Remix
-
+from flask import (Flask, render_template, request, flash, session,
+                   redirect)
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+app = Flask(__name__)
+app.secret_key = "SECRETKEY"
+# app.jinja_env.undefined = StrictUndefined
 
 db = SQLAlchemy()
 
@@ -26,7 +31,8 @@ class Exercise(db.Model):
     # reps = db.Column(db.Integer)
     img = db.Column(db.String)
 
-    exercise_injury = db.relationship("ExerciseInjury")
+    # exercise_injury = db.relationship("ExerciseInjury")
+    injuries = db.relationship("InjuryType", secondary="exercise_injury")
     exercise_routine = db.relationship("ExerciseRoutine")
 
     def __repr__(self):
@@ -67,7 +73,9 @@ class InjuryType(db.Model):
                         nullable=False)
     # description = db.Column(db.String)
 
-    exercise_injury = db.relationship("ExerciseInjury")
+    exercises = db.relationship("Exercise", secondary="exercise_injury")
+    # exercise_injury = db.relationship("ExerciseInjury")
+
 
     def __repr__(self):
         return f"<InjuryType id={self.inj_type_id} name={self.name} location={self.location}>"
@@ -132,7 +140,7 @@ class User(db.Model):
         return f"<User id={self.user_id} email={self.user_email}>"
 
 
-def connect_to_db(flask_app, db_uri="postgresql:///ptexercises", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///ptremix", echo=True):
     """Connect to the DB"""
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

@@ -2,6 +2,7 @@
 
 import model
 
+# move these to seed
 def create_user():
     """Create some test users"""
 
