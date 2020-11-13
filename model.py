@@ -27,13 +27,14 @@ class Exercise(db.Model):
                         nullable=False)
     equip_req = db.Column(db.Boolean,
                         nullable=False)
-    frequency = db.Column(db.Integer)
-    # reps = db.Column(db.Integer)
+    freq = db.Column(db.Integer)
     img = db.Column(db.String)
 
-    # exercise_injury = db.relationship("ExerciseInjury")
+    
     injuries = db.relationship("InjuryType", secondary="exercise_injury")
-    exercise_routine = db.relationship("ExerciseRoutine")
+    # old way: exercise_injury = db.relationship("ExerciseInjury")
+    routines = db.relationship("Routine", secondary="exercise_routine")
+    # old way: exercise_routine = db.relationship("ExerciseRoutine")
 
     def __repr__(self):
         return f"<Exercise id={self.exercise_id} name={self.name}>"
@@ -52,6 +53,7 @@ class ExerciseInjury(db.Model):
     exercise_id = db.Column(db.Integer,
                         db.ForeignKey("exercises.exercise_id"))
     
+    # TODO: Figure out what needs to happen to lines 57 and 58
     injury_types = db.relationship("InjuryType")
     exercises = db.relationship("Exercise")
 
@@ -74,7 +76,7 @@ class InjuryType(db.Model):
     # description = db.Column(db.String)
 
     exercises = db.relationship("Exercise", secondary="exercise_injury")
-    # exercise_injury = db.relationship("ExerciseInjury")
+    # old way: exercise_injury = db.relationship("ExerciseInjury")
 
 
     def __repr__(self):
@@ -95,7 +97,8 @@ class Routine(db.Model):
                         db.ForeignKey("users.user_id"))
     
     users = db.relationship("User")
-    exercise_routine = db.relationship("ExerciseRoutine")
+    exercises = db.relationship("Exercise", secondary="exercise_routine")
+    # old way: exercise_routine = db.relationship("ExerciseRoutine")
 
     def __repr__(self):
         return f"<Routine id={self.routine_id} date={self.date_created} user_id={self.user_id}>"
@@ -114,6 +117,7 @@ class ExerciseRoutine(db.Model):
     exercise_id = db.Column(db.Integer,
                         db.ForeignKey("exercises.exercise_id"))
     
+    # TODO: Figure out what needs to happen to the 2 lines below
     routines = db.relationship("Routine")
     exercises = db.relationship("Exercise")
 

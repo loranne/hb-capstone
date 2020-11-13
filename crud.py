@@ -2,60 +2,47 @@
 
 import model
 
-# move these to seed
-def create_user():
-    """Create some test users"""
 
-    user1 = User(email="loranne.n@gmail.com", 
-        password="1234007")
-    db.session.add(user1)
+def create_user(email, password):
+    """Create and return a new user record"""
 
-    user2 = User(email="l.orannen@gmail.com", 
-        password="1234007")
-    db.session.add(user2)
+    user = User(email=email, password=password)
 
+    db.session.add(user)
     db.session.commit()
 
-def create_exercise():
-    """Create some test exercises"""
+    return user
 
-    ex1 = Exercise(name="Crab Walk", 
-        description="With knees bent, step one foot out to the side, then bring the other foot to it. Continuing walking sideways like this for 20 steps, then switch sides.", 
-        duration=2,
-        equip_req=False,
-        frequency=3)
-    db.session.add(ex1)
 
-    ex2 = Exercise(name="Ankle Flex with Resistance Band",
-        description="With one end of the resistance band looped around the ball of the foot, and the other held in place by your hand, or tied to a stable object, pull against the band using your ankle. Hold for 3 seconds, then release.", 
-        duration=5,
-        equip_req=True,
-        frequency=7)
-    db.session.add(ex2)
+def create_exercise(name, description, duration, equip_req, freq, img="/404_smile.jpg"):
+    """Create and return a new exercise record"""
 
-    ex3 = Exercise(name="Ankle Circles",
-        description="Slowly rotate your ankle clockwise. Repate counterclockwise.",
-        duration=1,
-        equip_req=False,
-        frequency=7)
-    db.session.add(ex3)
-
+    exercise = Exercise(name=name, description=description, duration=duration, 
+        equip_req=equip_req, freq=freq, img=img)
+    
+    db.session.add(exercise)
     db.session.commit()
 
-def create_injury_type():
-    """Create some test injury types"""
+    return exercise
 
-    inj1 = InjuryType(name="Trimalleolar fracture",
-        location="ankle")
-    db.session.add(inj1)
 
-    inj2 = InjuryType(name="Torn meniscus",
-        location="knee")
-    db.session.add(inj2)
+def create_injury_type(name, location):
+    """Create and return a new injury type record."""
 
-    inj3 = InjuryType(name="Carpal tunnel",
-        location="wrist")
-    db.session.add(inj3)
+    injury_type = InjuryType(name=name, location=location)
 
+    db.session.add(injury_type)
     db.session.commit()
+
+    return injury_type
+
+def create_routine()
+
+def create_exerciseinjury_rship():
+    """Sets up relationship between exercise and injury"""
+
+    # NEED HALP
+
+
+
 
