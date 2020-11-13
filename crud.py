@@ -36,13 +36,31 @@ def create_injury_type(name, location):
 
     return injury_type
 
-def create_routine()
+def create_routine(user_id, duration, datetime=datetime.now()):
+    """Create a new routine record"""
 
-def create_exerciseinjury_rship():
-    """Sets up relationship between exercise and injury"""
+    #TODO: Find out if user_id is all I need to pass in here. The only other things that go here are routine_id and date created
+    # I'm not sure about datetime here
 
+    routine = Routine(user_id=user_id, duration=duration)
+
+
+def create_ex_inj_relationship():
+    """Sets up relationship between exercise and injury."""
+
+    #TODO: Figure out what I need to know about each exercise and injury in order to set this up.
     # NEED HALP
 
+    exercise_injury =
 
+def create_ex_routine_relationship():
+    """Sets up relationship between exercise and routine."""
+
+    exercise_routine = ExerciseRoutine(routine_id=routine_id, exercise_id=exercise_id)
+
+    db.session.add(exercise_routine)
+    db.session.commit()
+
+    return exercise_routine
 
 

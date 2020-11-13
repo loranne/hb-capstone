@@ -91,10 +91,12 @@ class Routine(db.Model):
     routine_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    date_created = db.Column(db.DateTime,
-                        nullable=False)
     user_id = db.Column(db.Integer,
                         db.ForeignKey("users.user_id"))
+    duration = db.Column(db.Integer)
+    date_created = db.Column(db.DateTime,
+                        nullable=False)
+    
     
     users = db.relationship("User")
     exercises = db.relationship("Exercise", secondary="exercise_routine")
