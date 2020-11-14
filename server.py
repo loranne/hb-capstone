@@ -50,9 +50,6 @@ def user_login_or_register():
             print("or else!")
             flash("No for that email address. Please create an account.")
             return redirect(url_for("homepage"))
-        
-        # #redirects to routine builder page
-        # return redirect("/build-routine")
     
     if request.form.get("register"):
 
