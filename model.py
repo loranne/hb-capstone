@@ -1,12 +1,6 @@
 # Models for Hackbright capstone project: PT Remix
-from flask import (Flask, render_template, request, flash, session,
-                   redirect)
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
-app = Flask(__name__)
-app.secret_key = "SECRETKEY"
-# app.jinja_env.undefined = StrictUndefined
 
 db = SQLAlchemy()
 
@@ -135,15 +129,16 @@ class User(db.Model):
     user_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    user_email = db.Column(db.String,
+    email = db.Column(db.String,
+                        unique=True,
                         nullable=False)
-    user_password = db.Column(db.String,
+    password = db.Column(db.String,
                         nullable=False)
     
     routines = db.relationship("Routine")
 
     def __repr__(self):
-        return f"<User id={self.user_id} email={self.user_email}>"
+        return f"<User id={self.user_id} email={self.email}>"
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///ptremix", echo=True):

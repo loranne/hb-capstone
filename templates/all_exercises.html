@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}All Exercises{% endblock %}
+
+{% block body %}
+    <h1>All Exercises</h1>
+
+    <ul>
+        {% for exercise in exercises %}
+        <li>
+            {{ exercise.name }}<br>
+            {{ exercise.description }}<br>
+            {{ exercise.duration }}<br>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
