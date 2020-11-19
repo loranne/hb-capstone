@@ -2,6 +2,7 @@
 
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for)
+from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, User, Exercise, Routine, InjuryType
 import os
 import crud
@@ -11,6 +12,8 @@ from jinja2 import StrictUndefined
 
 app = Flask(__name__)
 app.secret_key = "SECRETKEY"
+app.debug = True
+toolbar = DebugToolbarExtension(app)
 # secrets.token_urlsafe(16)
 app.jinja_env.undefined = StrictUndefined
 
@@ -20,8 +23,6 @@ def homepage():
     print("Homepage is go!")
     print(request)
 
-    flash("Hi Katie!")
-
     return render_template("homepage.html")
 
 
@@ -30,6 +31,7 @@ def user_login_or_register():
     """User can log into existing account"""
     print("Login is go!")
 
+    # did user click the log in button? if yes:
     if request.form.get("login"):
         email = request.form.get("email")
         password = request.form.get("password")
@@ -42,35 +44,35 @@ def user_login_or_register():
         # session["user"] = user.user_id
         print(request.form)
         
+        # did user enter right pw? if yes:
         if is_password_correct:
             print("is_password_correct")
             flash("Welcome Back!")
-            return redirect("/build-routine")
+            session["user"] = user.user_id
+            # I have session returned here, after successful login. I think 
+            # that'll let me keep it and use it and add to it!
+            return redirect("/build-routine", session=session)
+        # if no:
         else:
             print("or else!")
             flash("No for that email address. Please create an account.")
             return redirect(url_for("homepage"))
     
+    # did user click the register button? if yes:
     if request.form.get("register"):
-
-        # get user input of email and pw
-        # check if existing account
-        # add those to DB (crud function)
-        # flash messages
 
         email = request.form.get("email")
         password = request.form.get("password")
 
         user = crud.get_user_by_email(email)
 
+        # does a user with that email already exist? if yes:
         if user:
             flash("An account already exists for that email address. Please log in or try again.")
-            print("User is yes")
-        
+        # if no:
         else: 
             crud.create_user(email, password)
             flash("Account created! Please enter your info to log in.")
-            print("User is no")
 
         # redirects to same page. is this the right way to do this?
         return redirect(url_for("homepage"))
@@ -79,9 +81,11 @@ def user_login_or_register():
 @app.route("/build-routine")
 def view_builder_page():
     """View routine builder page"""
+    
+    injuries = crud.get_all_injuries()
 
     # all that's needed here is to render the template
-    return render_template("build_routine.html")
+    return render_template("build_routine.html", injuries=injuries)
 
 
 @app.route("/build-routine")

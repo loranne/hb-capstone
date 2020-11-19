@@ -1,6 +1,7 @@
+<!-- page displays list of all exercises in DB along with descriptions -->
 {% extends 'base.html' %}
 
-{% block title %}All Exercises{% endblock %}
+{% block title %}PT Remix - All exercises{% endblock %}
 
 {% block body %}
     <h1>All Exercises</h1>
@@ -11,6 +12,7 @@
             {{ exercise.name }}<br>
             {{ exercise.description }}<br>
             {{ exercise.duration }}<br>
+            {{ exercise.img }}<br>
         </li>
         {% endfor %}
     </ul>

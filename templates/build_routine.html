@@ -1,2 +1,52 @@
 <!-- page for user input and building routine -->
-Hello world!
+{% extends 'base.html' %}
+
+{% block title %}PT Remix - Build a routine {% endblock %}
+
+{% block body %}
+    <h1>Build a New Routine</h1>
+
+    <!-- For this one, need to get injury types from DB using app route -->
+    <form name="injury-type">
+        <label>Select your injury: </label>
+        <select name="injury">
+            {% for injury in injuries %}
+            <option value="{{ injury.name}}">{{ injury.name }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Form for user to choose how long a routine -->
+    <form name="time">
+        <label>Duration (min): </label>
+        <select name="duration">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="10">15</option>
+            <option value="10">20</option>
+            <option value="10">25</option>
+            <option value="10">30</option>
+            <option value="10">35</option>
+            <option value="10">40</option>
+            <option value="10">45</option>
+            <option value="10">50</option>
+            <option value="10">55</option>
+            <option value="10">60</option>
+        </select>
+    </form>
+
+    <!-- Form for user to select equipment y/n -->
+    <form name="equip">
+        <label>Do you have equipment?</label>
+        
+        <input type="radio" value="yes">
+        <label>Yes</label>
+
+        <input type="radio" value="no">
+        <label>No</label>
+    </form>
+    
+    <form name="builder">
+        <input type="submit" name="build-routine" value="Build my routine">
+    </form>
+    {% endblock %}

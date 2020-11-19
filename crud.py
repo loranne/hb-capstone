@@ -108,6 +108,13 @@ def get_all_exercises():
 
     return exercises
 
+def get_all_injuries():
+    """Gets all injury types in DB"""
+
+    injuries = db.session.query(InjuryType).all()
+
+    return injuries
+
 #TODO: Figure out what's going on with this function.
 # def get_routines_by_user(user_id=session["user"]):
     """Get all routines for a given user"""

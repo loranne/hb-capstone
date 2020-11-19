@@ -4,9 +4,17 @@
 
 {% block body %}
   <h1>Welcome to PT Remix!</h1>
+  <div>
+    <p>PT Remix builds your physical therapy routine based on your injury, time 
+      available, and whether or not you have equipment on hand. It doesn't replace 
+      visits to your phyiscal therapist, but will help you get through your exercises 
+      at home.</p>
+    
+    <p>Please log in or register for an account to build your routine.</p>
+  </div>
 
   <div>
-    <form action="/" name="login" method="POST">
+    <form action="/" method="POST">
         <p>
             Email <input type="text" name="email" required=True>
         </p>
