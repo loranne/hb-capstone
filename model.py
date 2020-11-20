@@ -22,9 +22,10 @@ class Exercise(db.Model):
     equip_req = db.Column(db.Boolean,
                         nullable=False)
     freq = db.Column(db.Integer)
+    max_reps = db.Column(db.Integer,
+                    nullable=False)
     img = db.Column(db.String)
 
-    
     injuries = db.relationship("InjuryType", secondary="exercise_injury")
     # old way: exercise_injury = db.relationship("ExerciseInjury")
     routines = db.relationship("Routine", secondary="exercise_routine")
@@ -152,3 +153,15 @@ def connect_to_db(flask_app, db_uri="postgresql:///ptremix", echo=True):
     db.init_app(flask_app)
 
     print('Connected to the db!')
+
+# for running model interactively and testing db
+if __name__ == '__main__':
+    from server import app
+    # pulls in seed data
+    import seed
+
+    # Call connect_to_db(app, echo=False) if your program output gets
+    # too annoying; this will tell SQLAlchemy not to print out every
+    # query it executes.
+
+    connect_to_db(app, echo=False)

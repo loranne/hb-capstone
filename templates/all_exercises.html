@@ -10,8 +10,9 @@
         {% for exercise in exercises %}
         <li>
             {{ exercise.name }}<br>
-            {{ exercise.description }}<br>
-            {{ exercise.duration }}<br>
+            Description: {{ exercise.description }}<br>
+            Duration: {{ exercise.duration }}<br>
+            Max reps: {{ exercise.max_reps }}<br>
             {{ exercise.img }}<br>
         </li>
         {% endfor %}

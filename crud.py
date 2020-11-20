@@ -108,12 +108,38 @@ def get_all_exercises():
 
     return exercises
 
+
 def get_all_injuries():
     """Gets all injury types in DB"""
 
     injuries = db.session.query(InjuryType).all()
 
     return injuries
+
+
+def add_injury_to_exercise(injury_type_id, **exercise_id):
+    """Adds injury-exercise relationship to association table"""
+    # Uses **kwargs to accept as few as 1 or as many exercises as we want
+    # isolates the exercise based on id
+    exercise = Exercise.query.filter_by(exercise_id=exercise_id).one()
+    # isolates injury based on id
+    injury = InjuryType.query.filter_by(inj_type_id=injury_id).one()
+
+    # appends both to injuries and to exercises tables... but why?
+    exercise.injuries.append(injury)
+    injury.exercises.append(exercise)
+    
+    # returns nothing
+    return None
+
+
+def get_exercises_by_injury(injury_id):
+    """Returns all exercises applicable to a specific injury"""
+
+    # now that I have the function on line 120 working, this one works, too
+    ex_by_inj = InjuryType.query.get(inj_type_id=injury_id).all()
+
+    return ex_by_inj
 
 #TODO: Figure out what's going on with this function.
 # def get_routines_by_user(user_id=session["user"]):
