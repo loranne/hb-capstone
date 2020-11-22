@@ -7,6 +7,22 @@
 
 # Run functions from seed file. 
 
+# Make a routine:
+
+r1 = Routine(user_id=1, duration=10, date_created=datetime.now())
+db.session.add(r1)
+
+# Make some injury-exercise relationships:
+
+def add_injury_to_exercises(injury_type_id, exercise_ids):
+    injury = InjuryType.query.get(injury_type_id)
+    for ex_id in exercise_ids:
+        exercise = Exercise.query.get(ex_id)
+        exercise.injuries.append(injury)        
+
+
+db.session.commit()
+
 
 #######TRIED TO WRITE UNITTEST##########################
 import unittest

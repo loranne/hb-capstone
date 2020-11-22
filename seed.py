@@ -5,9 +5,10 @@ import os
 # from random import choice, randint
 # from datetime import datetime
 
-# import crud
-from model import connect_to_db, db, User, Exercise, InjuryType
+import crud
+from model import connect_to_db, db, User, Exercise, InjuryType, Routine
 import server
+from datetime import datetime
 
 # always drop then create
 os.system('dropdb ptremix')
@@ -132,8 +133,36 @@ def create_injury_type():
 
     db.session.commit()
 
+def create_routine():
+    """Makes a new routine object"""
+
+    r1 = Routine(user_id=1, duration=10, date_created=datetime.now())
+    db.session.add(r1)
+
+    r2 = Routine(user_id=1, duration=20, date_created=datetime.now())
+    db.session.add(r2)
+
+    r3 = Routine(user_id=1, duration=5, date_created=datetime.now())
+    db.session.add(r3)
+
+    db.session.commit()
+
+def create_inj_ex_relationships():
+
+    crud.add_injury_to_exercises(1, [1, 2, 3, 4])
+    crud.add_injury_to_exercises(2, [5, 6, 7, 8])
+    crud.add_injury_to_exercises(3, [2, 4, 6, 8])
+
+def create_routine_ex_relationships():
+
+    crud.add_exercises_to_routine([1, 2, 3, 4], 1)
+    crud.add_exercises_to_routine([5, 6, 7, 8], 2)
+    crud.add_exercises_to_routine([2, 4, 6, 8], 3)
 
 # call functions to create data
 create_user()
 create_exercise()
 create_injury_type()
+create_routine()
+create_inj_ex_relationships()
+create_routine_ex_relationships()

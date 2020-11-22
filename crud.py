@@ -1,6 +1,6 @@
 # CRUD operations and queries for page content goes here
 
-from model import db, Exercise, User, InjuryType, ExerciseInjury, ExerciseRoutine
+from model import db, Exercise, User, InjuryType, ExerciseInjury, ExerciseRoutine, Routine
 from datetime import datetime 
 
 import server
@@ -56,31 +56,6 @@ def create_routine(user_id, duration, datetime=datetime.now()):
     return routine
 
 
-def create_ex_inj_relationship(inj_type_id, exercise_id):
-    """Sets up relationship between exercise and injury."""
-
-    #TODO: Figure out what I need to know about each exercise and injury in order to set this up.
-    # NEED HALP
-
-    exercise_injury = ExerciseInjury(inj_type_id=inj_type_id, exercise_id=exercise_id)
-
-    db.session.add(exercise_injury)
-    db.session.commit()
-
-    return exercise_injury
-
-
-def create_ex_routine_relationship(routine_id, exercise_id):
-    """Sets up relationship between exercise and routine."""
-
-    exercise_routine = ExerciseRoutine(routine_id=routine_id, exercise_id=exercise_id)
-
-    db.session.add(exercise_routine)
-    db.session.commit()
-
-    return exercise_routine
-
-
 ####################QUERIES/GETTING INFO#######################
 
 def get_user_by_email(email):
@@ -113,6 +88,7 @@ def get_all_injuries():
     """Gets all injury types in DB"""
 
     injuries = db.session.query(InjuryType).all()
+    # could also do InjuryType.query.all()
 
     return injuries
 
@@ -120,7 +96,7 @@ def get_all_injuries():
 def add_injury_to_exercises(injury_type_id, exercise_ids):
     """Adds injury-exercise relationship to association table"""
     
-    #TODO: change to accept list input of exericse IDs. Make function for that
+    #DONE: change to accept list input of exericse IDs. Make function for that
 
     # isolates injury based on id
     injury = InjuryType.query.get(injury_type_id)
@@ -136,6 +112,17 @@ def add_injury_to_exercises(injury_type_id, exercise_ids):
     db.session.commit()
     
     # returns nothing
+
+def add_exercises_to_routine(exercise_ids, routine_id):
+    """Adds list of exercises to routine. Works a lot like add injury to exercise"""
+
+    routine = Routine.query.get(routine_id)
+
+    for ex_id in exercise_ids:
+        exercise = Exercise.query.get(ex_id)
+        routine.exercises.append(exercise)
+    
+    db.session.commit()
 
 
 def get_exercises_by_injury(injury_id):
