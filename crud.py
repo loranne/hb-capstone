@@ -117,27 +117,32 @@ def get_all_injuries():
     return injuries
 
 
-def add_injury_to_exercise(injury_type_id, **exercise_id):
+def add_injury_to_exercises(injury_type_id, exercise_ids):
     """Adds injury-exercise relationship to association table"""
-    # Uses **kwargs to accept as few as 1 or as many exercises as we want
-    # isolates the exercise based on id
-    exercise = Exercise.query.filter_by(exercise_id=exercise_id).one()
-    # isolates injury based on id
-    injury = InjuryType.query.filter_by(inj_type_id=injury_id).one()
+    
+    #TODO: change to accept list input of exericse IDs. Make function for that
 
-    # appends both to injuries and to exercises tables... but why?
-    exercise.injuries.append(injury)
-    injury.exercises.append(exercise)
+    # isolates injury based on id
+    injury = InjuryType.query.get(injury_type_id)
+
+    # looping over list of exercise ids passed in as arg
+    for ex_id in exercise_ids:
+        # gets the exercise object based on the id
+        exercise = Exercise.query.get(ex_id)
+        # appends the injury to that exercise
+        exercise.injuries.append(injury)
+
+    # commit all the appends to the db
+    db.session.commit()
     
     # returns nothing
-    return None
 
 
 def get_exercises_by_injury(injury_id):
     """Returns all exercises applicable to a specific injury"""
 
     # now that I have the function on line 120 working, this one works, too
-    ex_by_inj = InjuryType.query.get(inj_type_id=injury_id).all()
+    ex_by_inj = InjuryType.query.get(inj_type_id=injury_id).exercises
 
     return ex_by_inj
 

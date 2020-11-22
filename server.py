@@ -13,7 +13,7 @@ from jinja2 import StrictUndefined
 app = Flask(__name__)
 app.secret_key = "SECRETKEY"
 app.debug = True
-toolbar = DebugToolbarExtension(app)
+toolbar = DebugToolbarExtension
 # secrets.token_urlsafe(16)
 app.jinja_env.undefined = StrictUndefined
 
