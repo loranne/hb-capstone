@@ -115,15 +115,14 @@ class ExerciseRoutine(db.Model):
     exercise_id = db.Column(db.Integer,
                         db.ForeignKey("exercises.exercise_id"))
     # stores # reps per exercise. take this out if it fails...
-    exercise_reps = db.Column(db.Integer,
-                        nullable=False)
+    exercise_reps = db.Column(db.Integer)
     
     # TODO: Figure out what needs to happen to the 2 lines below
     routines = db.relationship("Routine")
     exercises = db.relationship("Exercise")
 
     def __repr__(self):
-        return f"<ExerciseRoutine id={self.exroutine_id} routine_id={self.routine_id} exercise_id={self.exercise_id}>"
+        return f"<ExerciseRoutine exroutine_id={self.exroutine_id} routine_id={self.routine_id} exercise_id={self.exercise_id}>"
 
 
 class User(db.Model):

@@ -155,9 +155,13 @@ def create_inj_ex_relationships():
 
 def create_routine_ex_relationships():
 
-    crud.add_exercises_to_routine([1, 2, 3, 4], 1)
-    crud.add_exercises_to_routine([5, 6, 7, 8], 2)
-    crud.add_exercises_to_routine([2, 4, 6, 8], 3)
+    crud.add_exercise_to_routine(1, 1)
+    crud.add_exercise_to_routine(2, 2)
+    crud.add_exercise_to_routine(2, 3)
+
+def add_some_test_ex_inj_relationships():
+
+    crud.add_injury_to_exercises(1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 # call functions to create data
 create_user()
@@ -166,3 +170,4 @@ create_injury_type()
 create_routine()
 create_inj_ex_relationships()
 create_routine_ex_relationships()
+add_some_test_ex_inj_relationships()
