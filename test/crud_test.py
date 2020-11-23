@@ -18,7 +18,19 @@ def add_injury_to_exercises(injury_type_id, exercise_ids):
     injury = InjuryType.query.get(injury_type_id)
     for ex_id in exercise_ids:
         exercise = Exercise.query.get(ex_id)
-        exercise.injuries.append(injury)        
+        exercise.injuries.append(injury)
+    db.session.commit()        
+
+
+# add all exercises to an injury
+
+add_injury_to_exercises(1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+# get exercises by injury ID
+def get_exercises_by_injury(injury_id):
+
+    ex_by_inj = InjuryType.query.get(injury_id).exercises
+    return ex_by_inj
 
 
 db.session.commit()

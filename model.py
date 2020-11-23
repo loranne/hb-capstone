@@ -1,7 +1,8 @@
 # Models for Hackbright capstone project: PT Remix
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-# from crud import
+import random
+import crud
 
 db = SQLAlchemy()
 
@@ -49,7 +50,6 @@ class ExerciseInjury(db.Model):
     exercise_id = db.Column(db.Integer,
                         db.ForeignKey("exercises.exercise_id"))
     
-    # TODO: Figure out what needs to happen to lines 57 and 58
     injury_types = db.relationship("InjuryType")
     exercises = db.relationship("Exercise")
 
@@ -114,6 +114,9 @@ class ExerciseRoutine(db.Model):
                         db.ForeignKey("routines.routine_id"))
     exercise_id = db.Column(db.Integer,
                         db.ForeignKey("exercises.exercise_id"))
+    # stores # reps per exercise. take this out if it fails...
+    exercise_reps = db.Column(db.Integer,
+                        nullable=False)
     
     # TODO: Figure out what needs to happen to the 2 lines below
     routines = db.relationship("Routine")

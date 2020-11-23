@@ -2,6 +2,7 @@
 
 from model import db, Exercise, User, InjuryType, ExerciseInjury, ExerciseRoutine, Routine
 from datetime import datetime 
+import random
 
 import server
 from sqlalchemy.orm.exc import NoResultFound
@@ -54,6 +55,39 @@ def create_routine(user_id, duration, datetime=datetime.now()):
     db.session.commit()
     
     return routine
+
+def build_routine(user_id=1, duration=10, datetime=datetime.now(), inj_type_id=1):
+    """Creates new routine with specific parameters"""
+
+    block = (duration / 3) * 60
+
+    num_exercises = 3
+
+    # the routine I'm adding exercises to
+    routine = creat_routine(user_id, duration, datetime)
+    
+    exercise_reps = block / exercise.duration 
+
+    # exercises to choose from = all exercises based on injury type
+    exercises = get_exercises_by_injury(inj_type_id)
+
+    # variable exercise_choice should be list of randomly chosen exercises from 
+    # line above, based on num_exercises
+    exercise_choice = random.sample(exercises, k=num_exericses)
+
+    #TODO: decide if it makes more sense to call add_exercises_to_routine within
+    #TODO: loop, or before loop
+    
+    # set up exerciseroutine relationship for each exercise chosen
+
+    # loop over that list of randomly chosen exercises
+    for exercise in exercise_choice: 
+        relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine.routine_id).first()
+        add_exercise_to_routine(exercise.exercise_id, routine.routine._id)
+        reps = int(block / exercise.duration)
+        relationship.exercise_reps = reps
+        db.session.commit()
+        # append reps to exerciseroutine table, based on exercise_id and routine_id
 
 
 ####################QUERIES/GETTING INFO#######################
@@ -113,14 +147,18 @@ def add_injury_to_exercises(injury_type_id, exercise_ids):
     
     # returns nothing
 
-def add_exercises_to_routine(exercise_ids, routine_id):
+def add_exercise_to_routine(exercise_id, routine_id):
     """Adds list of exercises to routine. Works a lot like add injury to exercise"""
 
     routine = Routine.query.get(routine_id)
+    exercise = Exercise.query.get(exercise_id)
 
-    for ex_id in exercise_ids:
-        exercise = Exercise.query.get(ex_id)
-        routine.exercises.append(exercise)
+    routine.exercises.append(exercise)
+
+    # not doing a loop anymore, because loop will happen in routine builder
+    # for ex_id in exercise_ids:
+    #     exercise = Exercise.query.get(exercise_id)
+    #     routine.exercises.append(exercise)
     
     db.session.commit()
 
@@ -129,8 +167,9 @@ def get_exercises_by_injury(injury_id):
     """Returns all exercises applicable to a specific injury"""
 
     # now that I have the function on line 120 working, this one works, too
-    ex_by_inj = InjuryType.query.get(inj_type_id=injury_id).exercises
+    ex_by_inj = InjuryType.query.get(injury_id).exercises
 
+    # get list of objects
     return ex_by_inj
 
 #TODO: Figure out what's going on with this function.

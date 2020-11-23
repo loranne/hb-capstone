@@ -36,7 +36,7 @@ def create_exercise():
 
     ex1 = Exercise(name="Crab Walk", 
         description="With knees bent, step one foot out to the side, then bring the other foot to it. Continuing walking sideways like this for 20 steps, then switch sides.", 
-        duration=2,
+        duration=4,
         equip_req=False,
         freq=3,
         max_reps=20)
@@ -52,7 +52,7 @@ def create_exercise():
 
     ex3 = Exercise(name="Ankle Circles",
         description="Slowly rotate your ankle clockwise. Repate counterclockwise.",
-        duration=1,
+        duration=3,
         equip_req=False,
         freq=7,
         max_reps=20)
@@ -83,7 +83,7 @@ def create_exercise():
     db.session.add(ex6)
 
     ex7 = Exercise(name="Walking",
-        description="Concentrate on form, rather than endurance. Focus on making sure strides are even in length, and roll all the way through your injured foot if possible (stead of limping). Take it slow, take shorter strides to start.",
+        description="Concentrate on form, rather than endurance or speed. Focus on making sure strides are even in length, and roll all the way through your injured foot if possible (stead of limping). Take it slow, take shorter strides to start.",
         duration=2,
         equip_req=False,
         freq=7,
