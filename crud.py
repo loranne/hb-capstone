@@ -59,21 +59,26 @@ def create_routine(user_id, duration, datetime=datetime.now()):
 def build_routine(user_id=1, duration=10, datetime=datetime.now(), inj_type_id=1):
     """Creates new routine with specific parameters"""
 
-    block = (duration / 3) * 60
+    # 2 exercises per block 
+    num_exercises = int(duration / 5 / 2)
+    print(f"No. of exercises is {num_exercises}")
+    time_per_exercise = int((duration / num_exercises) * 60)
+    print(time_per_exercise)
 
-    num_exercises = 3
+    
 
     # the routine I'm adding exercises to
-    routine = creat_routine(user_id, duration, datetime)
-    
-    exercise_reps = block / exercise.duration 
+    routine = create_routine(user_id, duration, datetime)
+    print(routine)
 
     # exercises to choose from = all exercises based on injury type
     exercises = get_exercises_by_injury(inj_type_id)
+    print(exercises)
 
     # variable exercise_choice should be list of randomly chosen exercises from 
     # line above, based on num_exercises
-    exercise_choice = random.sample(exercises, k=num_exericses)
+    exercise_choice = random.sample(exercises, k=num_exercises)
+    print(exercise_choice)
 
     #TODO: decide if it makes more sense to call add_exercises_to_routine within
     #TODO: loop, or before loop
@@ -81,13 +86,21 @@ def build_routine(user_id=1, duration=10, datetime=datetime.now(), inj_type_id=1
     # set up exerciseroutine relationship for each exercise chosen
 
     # loop over that list of randomly chosen exercises
-    for exercise in exercise_choice: 
+    for exercise in exercise_choice:
+        add_exercise_to_routine(exercise.exercise_id, routine.routine_id)
+        reps = int(time_per_exercise / exercise.duration)
+        print(reps)
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine.routine_id).first()
-        add_exercise_to_routine(exercise.exercise_id, routine.routine._id)
-        reps = int(block / exercise.duration)
+        print(relationship)
+
+        #TODO: if relationship, just in case there is no match for ex and routine ids
         relationship.exercise_reps = reps
+        print(relationship.exercise_reps)
         db.session.commit()
         # append reps to exerciseroutine table, based on exercise_id and routine_id
+
+    # return this so I can then grab the routine_id easily for making new page
+    return routine
 
 
 ####################QUERIES/GETTING INFO#######################
@@ -161,6 +174,13 @@ def add_exercise_to_routine(exercise_id, routine_id):
     #     routine.exercises.append(exercise)
     
     db.session.commit()
+
+def get_exercises_by_routine(routine_id):
+    """Returns exercises from one routine"""
+
+    ex_by_routine = Routine.query.get(routine_id).exercises
+
+    return ex_by_routine
 
 
 def get_exercises_by_injury(injury_id):

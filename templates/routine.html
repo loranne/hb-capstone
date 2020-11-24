@@ -1,1 +1,23 @@
 <!-- page for a single routine -->
+{% extends 'base.html' %}
+
+{% block title %}PT Remix - Your routine{% endblock %}
+
+{% block body %}
+    <h1>Your Routine</h1>
+
+    <ul>
+        {% for exercise in exercises %}
+        <li>
+            {{ exercise.name }}<br>
+            Description: {{ exercise.description }}<br>
+            Duration: {{ exercise.duration }}<br>
+            {#<!-- Reps: {{ exerciseroutine.max_reps }}<br> -->#}
+            {{ exercise.img }}<br>
+        </li>
+        {% endfor %}
+    </ul>
+    <script>
+        alert("This is a JS alert!");
+    </script>
+    {% endblock %}

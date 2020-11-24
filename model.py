@@ -2,7 +2,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import random
-import crud
+# uncomment line below for running interactively
+# import crud
 
 db = SQLAlchemy()
 

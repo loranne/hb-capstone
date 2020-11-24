@@ -13,7 +13,7 @@ from jinja2 import StrictUndefined
 app = Flask(__name__)
 app.secret_key = "SECRETKEY"
 app.debug = True
-toolbar = DebugToolbarExtension
+toolbar = DebugToolbarExtension(app)
 # secrets.token_urlsafe(16)
 app.jinja_env.undefined = StrictUndefined
 
@@ -78,26 +78,52 @@ def user_login_or_register():
         return redirect(url_for("homepage"))
  
 
-@app.route("/build-routine")
+@app.route("/build-routine", methods=["GET"])
 def view_builder_page():
     """View routine builder page"""
-    
+    print("builder is go")
+
     injuries = crud.get_all_injuries()
 
     # all that's needed here is to render the template
     return render_template("build_routine.html", injuries=injuries)
 
 
-@app.route("/build-routine")
+@app.route("/build-routine", methods=["POST"])
 def build_new_routine():
-    """Generate a brand new PT routine"""
+    """Get info from form and generate a brand new PT routine"""
+    print("new routine is go")
+    
+    # get user input from the form
+    injury = request.form.get("injury-type")
+    duration = request.form.get("duration")
+    print("check form name/details")
+    # have to update algo to include this
+    # has_equip = request.form.get("equip")
+
+    new_routine = crud.build_routine()
+
+    routine_id = new_routine.routine_id
 
     # needs
     # get user inputs of time, injury type, equipment
     # on click, run relevant queries and
 
     # takes us to the routine page
-    return redirect("/routine/{routine_id}")
+    return redirect(f"/routine/{routine_id}")
+
+@app.route("/routine/<routine_id>")
+def view_routine(routine_id):
+    """View details of one specific routine"""
+
+    routine = Routine.query.get(routine_id)
+
+    ex_for_routine = crud.get_exercises_by_routine(routine_id)
+
+    # for exercise in ex_for_routine:
+    #     reps = 
+
+    return render_template("routine.html", exercises=ex_for_routine)
 
 
 @app.route("/all-exercises")
@@ -137,5 +163,3 @@ def user_logout():
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(debug=True, host='0.0.0.0')
-
-    # 
