@@ -59,13 +59,12 @@ def create_routine(user_id, duration, datetime=datetime.now()):
 def build_routine(user_id=1, duration=10, datetime=datetime.now(), inj_type_id=1):
     """Creates new routine with specific parameters"""
 
-    # 2 exercises per block 
-    num_exercises = int(duration / 5 / 2)
+    # 2 exercises per 5 min block 
+    num_exercises = int(duration / 5 * 2)
     print(f"No. of exercises is {num_exercises}")
+
     time_per_exercise = int((duration / num_exercises) * 60)
     print(time_per_exercise)
-
-    
 
     # the routine I'm adding exercises to
     routine = create_routine(user_id, duration, datetime)
@@ -94,9 +93,12 @@ def build_routine(user_id=1, duration=10, datetime=datetime.now(), inj_type_id=1
         print(relationship)
 
         #TODO: if relationship, just in case there is no match for ex and routine ids
-        relationship.exercise_reps = reps
-        print(relationship.exercise_reps)
-        db.session.commit()
+        if relationship:
+            relationship.exercise_reps = reps
+            print(relationship.exercise_reps)
+            db.session.commit()
+        else: 
+            print("No such routine-exercise relationship.")
         # append reps to exerciseroutine table, based on exercise_id and routine_id
 
     # return this so I can then grab the routine_id easily for making new page

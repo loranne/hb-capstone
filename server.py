@@ -10,6 +10,9 @@ import secrets
 # StrictUndefined means that it will complain if I try to use something in jinja that I haven't defined
 from jinja2 import StrictUndefined
 
+# has my colorizer function
+import utilities
+
 app = Flask(__name__)
 app.secret_key = "SECRETKEY"
 app.debug = True
@@ -29,7 +32,7 @@ def homepage():
 @app.route("/", methods=["POST"])
 def user_login_or_register():
     """User can log into existing account"""
-    print("Login is go!")
+    utilities.print_color("Login is go!")
 
     # did user click the log in button? if yes:
     if request.form.get("login"):
@@ -51,7 +54,7 @@ def user_login_or_register():
             session["user"] = user.user_id
             # I have session returned here, after successful login. I think 
             # that'll let me keep it and use it and add to it!
-            return redirect("/build-routine", session=session)
+            return redirect("/build-routine")
         # if no:
         else:
             print("or else!")
@@ -81,7 +84,8 @@ def user_login_or_register():
 @app.route("/build-routine", methods=["GET"])
 def view_builder_page():
     """View routine builder page"""
-    print("builder is go")
+    flash(f"User id is: {session['user']}")
+    utilities.print_color("builder is go")
 
     injuries = crud.get_all_injuries()
 
@@ -92,7 +96,7 @@ def view_builder_page():
 @app.route("/build-routine", methods=["POST"])
 def build_new_routine():
     """Get info from form and generate a brand new PT routine"""
-    print("new routine is go")
+    utilities.print_color("new routine is go")
     
     # get user input from the form
     injury = request.form.get("injury-type")
