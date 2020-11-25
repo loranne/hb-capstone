@@ -99,13 +99,17 @@ def build_new_routine():
     utilities.print_color("new routine is go")
     
     # get user input from the form
-    injury = request.form.get("injury-type")
+    injury_name = request.form.get("injury")
+    utilities.print_color(injury_name)
+    injury = InjuryType.query.filter(InjuryType.name==injury_name).one()
+    utilities.print_color(injury)
+    # injury_id = injury.inj_type_id
     duration = request.form.get("duration")
     print("check form name/details")
     # have to update algo to include this
     # has_equip = request.form.get("equip")
 
-    new_routine = crud.build_routine()
+    new_routine = crud.build_routine(session["user"], duration, injury.inj_type_id)
 
     routine_id = new_routine.routine_id
 
