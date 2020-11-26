@@ -32,6 +32,9 @@ def get_exercises_by_injury(injury_id):
     ex_by_inj = InjuryType.query.get(injury_id).exercises
     return ex_by_inj
 
+# get most recent routine by user (where user_id = 1)
+query = Routine.query.order_by(Routine.date_created.desc()).filter(Routine.user_id==1).first()
+
 
 db.session.commit()
 
