@@ -56,7 +56,7 @@ def create_routine(user_id, duration, datetime=datetime.now()):
     
     return routine
 
-def build_routine(user_id, duration, inj_type_id, datetime=datetime.now(), ):
+def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     """Creates new routine with specific parameters"""
 
     duration = int(duration)

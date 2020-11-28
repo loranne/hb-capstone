@@ -15,7 +15,7 @@ class Exercise(db.Model):
     exercise_id = db.Column(db.Integer, 
                         autoincrement=True,
                         primary_key=True)
-    name = db.Column(db.String,
+    name = db.Column(db.String(50),
                         unique=True,
                         nullable=False)
     description = db.Column(db.Text,
@@ -117,6 +117,7 @@ class ExerciseRoutine(db.Model):
                         db.ForeignKey("exercises.exercise_id"))
     # stores # reps per exercise. take this out if it fails...
     exercise_reps = db.Column(db.Integer)
+    exercise_pain_level = db.Column(db.String(20))
     
     # TODO: Figure out what needs to happen to the 2 lines below
     routines = db.relationship("Routine")

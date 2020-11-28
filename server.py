@@ -101,7 +101,7 @@ def build_new_routine():
     # get user input from the form
     injury_name = request.form.get("injury")
     utilities.print_color(injury_name)
-    injury = InjuryType.query.filter(InjuryType.name==injury_name).one()
+    injury = InjuryType.query.filter_by(name=injury_name).one()
     utilities.print_color(injury)
     # injury_id = injury.inj_type_id
     duration = request.form.get("duration")
