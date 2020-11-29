@@ -116,10 +116,12 @@ class ExerciseRoutine(db.Model):
     exercise_id = db.Column(db.Integer,
                         db.ForeignKey("exercises.exercise_id"))
     # stores # reps per exercise. take this out if it fails...
+    # is nullable!
     exercise_reps = db.Column(db.Integer)
-    exercise_pain_level = db.Column(db.String(20))
+    # pain levels per exercise in each routine. user input.
+    exercise_pain = db.Column(db.String(20))
     
-    # TODO: Figure out what needs to happen to the 2 lines below
+    # DONE: Figure out what needs to happen to the 2 lines below
     routines = db.relationship("Routine")
     exercises = db.relationship("Exercise")
 

@@ -163,6 +163,15 @@ def add_injury_to_exercises(injury_type_id, exercise_ids):
     
     # returns nothing
 
+
+def set_exercise_pain(exercise_id, routine_id, pain_level):
+    """Sets the pain level for exerciseroutine relationship"""
+
+    ex_routine = ExerciseRoutine.query.filter(exercise_id=exercise_id, routine_id=routine_id).first()
+
+    ex_routine.exercise_pain = pain_level
+
+
 def add_exercise_to_routine(exercise_id, routine_id):
     """Adds list of exercises to routine. Works a lot like add injury to exercise"""
 
