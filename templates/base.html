@@ -11,7 +11,15 @@
   </head>
   <body>
     <!-- this is where my menu details will go -->
-    {% block menu %}{% endblock %}
+    {% block menu %}
+      {% if session["user"] %}
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/build-routine">Build a routine</a></li>
+          <li><a href="/goodbye" name="logout">Log out</a></li>
+        </ul>
+      {% endif %}
+    {% endblock %}
 
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">

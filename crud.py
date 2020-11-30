@@ -80,8 +80,8 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     exercise_choice = random.sample(exercises, k=num_exercises)
     print(exercise_choice)
 
-    #TODO: decide if it makes more sense to call add_exercises_to_routine within
-    #TODO: loop, or before loop
+    #DONE: decide if it makes more sense to call add_exercises_to_routine within
+    #loop, or before loop—within wins
     
     # set up exerciseroutine relationship for each exercise chosen
 
@@ -89,9 +89,9 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     for exercise in exercise_choice:
         add_exercise_to_routine(exercise.exercise_id, routine.routine_id)
         reps = int(time_per_exercise / exercise.duration)
-        print(reps)
+        # print(reps)
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine.routine_id).first()
-        print(relationship)
+        # print(relationship)
 
         #TODO: if relationship, just in case there is no match for ex and routine ids
         if relationship:
@@ -107,6 +107,16 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
 
 
 ####################QUERIES/GETTING INFO#######################
+
+def logout_user():
+    """Logs user out of app and removes user from flask session"""
+
+    # user_id = session["user"]
+
+    # user = User.query.get(user_id)
+
+    del session["user"]
+
 
 def get_user_by_email(email):
     """Return a user by email"""

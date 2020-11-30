@@ -14,7 +14,7 @@
   </div>
 
   <div>
-    {# if user statement goes here, passing in session["user"] #}
+    {% if session["user"] is sameas false %}
     <form action="/" method="POST">
         <p>
             Email <input type="text" name="email" required=True>
@@ -25,5 +25,6 @@
         <input type="submit" name="login" value="Log In">
         <input type="submit" name="register" value="Register">
     </form>
+    {% endif %}
   </div>
 {% endblock %}

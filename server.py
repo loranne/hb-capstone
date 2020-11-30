@@ -25,6 +25,7 @@ def homepage():
     """View Homepage"""
     print("Homepage is go!")
     print(request)
+    # utilities.print_color(session["user"])
 
     return render_template("homepage.html")
 
@@ -33,6 +34,7 @@ def homepage():
 def user_login_or_register():
     """User can log into existing account"""
     utilities.print_color("Login is go!")
+    # utilities.print_color(session["user"])
 
     # did user click the log in button? if yes:
     if request.form.get("login"):
@@ -54,7 +56,7 @@ def user_login_or_register():
             session["user"] = user.user_id
             # I have session returned here, after successful login. I think 
             # that'll let me keep it and use it and add to it!
-            return redirect("/build-routine")
+            return redirect("/build-routine", session["user"])
         # if no:
         else:
             print("or else!")
@@ -78,7 +80,18 @@ def user_login_or_register():
             flash("Account created! Please enter your info to log in.")
 
         # redirects to same page. is this the right way to do this?
-        return redirect(url_for("homepage"))
+        return redirect(url_for("homepage"), user=user)
+
+
+@app.route("/goodbye")
+def user_logout():
+    utilities.print_color(session)
+    utilities.print_color("test")
+    """Calls user logout function from crud and displays goodbye message"""
+
+    session.pop("user", None)
+
+    return render_template("goodbye.html")
  
 
 @app.route("/build-routine", methods=["GET"])
@@ -152,15 +165,6 @@ def view_user_routines():
     # have to make sure it only works based on user session
 
     return render_template("routine_list.html")
-
-
-@app.route("/logout")
-def user_logout():
-    """Clears sessions and logs user out"""
-
-    # click logout button, get routed back to home
-
-    return redirect("/")
 
 
 ############FUNCTIONS#############################
