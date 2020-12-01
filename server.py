@@ -14,6 +14,7 @@ from jinja2 import StrictUndefined
 import utilities
 
 app = Flask(__name__)
+# need to adjust this one
 app.secret_key = "SECRETKEY"
 app.debug = True
 toolbar = DebugToolbarExtension(app)
