@@ -198,10 +198,6 @@ def view_user_routines():
     # simple query to get all routines for that user
     user_routines_by_time = Routine.query.order_by(Routine.date_created.desc()).filter_by(user_id=user_id)
 
-    for routine in user_routines_by_time:
-        routine_date = routine.date_created.strftime("%m/%d/%Y")
-        utilities.print_color(routine_date)
-
     return render_template("routine_list.html", routines=user_routines_by_time)
 
 
