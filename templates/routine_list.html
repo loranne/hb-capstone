@@ -1,1 +1,19 @@
 <!-- list of user's routines -->
+{% extends 'base.html' %}
+
+{% block title %}PT Remix - All your routines{% endblock %}
+
+{% block body %}
+    <h1>Your Routines</h1>
+        <div>
+        {% for routine in routines %}
+            <p><a href="/routine/{{ routine.routine_id }}">Date: {{ routine.date_created }}</a></p>
+            {% for exercise in routine.exercises %}
+            <ul>
+                <li>{{ exercise.name }}</li>
+            </ul>
+            {% endfor %}
+        {% endfor %}
+        </div>
+
+{% endblock %}

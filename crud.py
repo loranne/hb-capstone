@@ -110,6 +110,8 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     for exercise in exercise_choice:
         add_exercise_to_routine(exercise.exercise_id, routine.routine_id)
         reps = int(time_per_exercise / exercise.duration)
+        # need to hang onto max_reps as a variable that *might* change, if certain
+        # conditions are met
         max_reps = exercise.max_reps
         if exercise in prev_routine.exercises:
             # sets relationship variable

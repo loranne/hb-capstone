@@ -7,6 +7,7 @@ from model import connect_to_db, db, User, Exercise, Routine, InjuryType, Exerci
 import os
 import crud
 import secrets
+from datetime import datetime
 # StrictUndefined means that it will complain if I try to use something in jinja that I haven't defined
 from jinja2 import StrictUndefined
 
@@ -147,8 +148,6 @@ def view_routine(routine_id):
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine_id).first()
         exercise.reps = relationship.exercise_reps
 
-        # exroutines = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine_id).all() 
-
     return render_template("routine.html", exercises=list_ex_for_routine, routine_id=routine_id)
 
 
@@ -195,10 +194,15 @@ def view_all_exercises():
 def view_user_routines():
     """View a list of user's past routines"""
 
-    # query to find all routines by user
-    # have to make sure it only works based on user session
+    user_id = session["user"]
+    # simple query to get all routines for that user
+    user_routines_by_time = Routine.query.order_by(Routine.date_created.desc()).filter_by(user_id=user_id)
 
-    return render_template("routine_list.html")
+    for routine in user_routines_by_time:
+        routine_date = routine.date_created.strftime("%m/%d/%Y")
+        utilities.print_color(routine_date)
+
+    return render_template("routine_list.html", routines=user_routines_by_time)
 
 
 ############FUNCTIONS#############################
