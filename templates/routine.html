@@ -5,19 +5,52 @@
 
 {% block body %}
     <h1>Your Routine</h1>
-
-    <ul>
+        <div>
         {% for exercise in exercises %}
-        <li>
-            {{ exercise.name }}<br>
-            Description: {{ exercise.description }}<br>
-            Duration: {{ exercise.duration }}<br>
+            <p>{{ exercise.name }}</p>
+            <p>Description: {{ exercise.description }}</p>
             {#<!-- Reps: {{ exerciseroutine.max_reps }}<br> -->#}
-            {{ exercise.img }}<br>
-        </li>
+            <p>Max reps: {{ exercise.max_reps }}</p>
+            <p>Exercise ID: {{exercise.exercise_id }}</p>
+            <p>Reps: {{ exercise.reps }}</p>
+            <p>{{ exercise.img }}</p>
+            <p>How did this exercise go?</p>
+            <div><input type="submit" name="yay" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!"></div>
+            <div><input type="submit" name="meh" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay"></div>
+            <div><input type="submit" name="boo" id="boo-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad"></div>
         {% endfor %}
-    </ul>
+        </div>
     <script>
         alert("This is a JS alert!")
+        const buttonyay = $('#yay-1-5')
+        console.log(buttonyay)
+        buttonyay.on('click', (evt) => {
+            evt.preventDefault();
+            console.log("click happened")
+            $.post('/routine/5', {'pain_level': 'positive'}, (res) => {
+                console.log(res['status']);
+
+            })
+            // evt.target
+            // on click, needs to update ExerciseRoutine.exercise_pain
+            // change style of button happens in here
+        });
+
+        console.log(buttonyay)
+
+        // $('button.does-something').on('click', (evt) => {
+        //     const button = $(evt.target);
+        // })
+        // const buttonmeh = $('meh-');
+        // buttonmeh.on('click', (evt) => {
+        //     evt.preventDefault();
+        //     // console.log(exercise.exercise_id);
+        // });
+
+        // const buttonboo = $('boo-');
+        // buttonboo.on('click', (evt) => {
+        //     evt.preventDefault();
+        //     // console.log(exercise.exercise_id);
+        // });
     </script>
     {% endblock %}

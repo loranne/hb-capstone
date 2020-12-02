@@ -86,6 +86,7 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     # set up exerciseroutine relationship for each exercise chosen
 
     # loop over that list of randomly chosen exercises
+    #TODO: FIX MATH
     for exercise in exercise_choice:
         add_exercise_to_routine(exercise.exercise_id, routine.routine_id)
         reps = int(time_per_exercise / exercise.duration)
@@ -105,6 +106,17 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     # return this so I can then grab the routine_id easily for making new page
     return routine
 
+
+def set_pain_level_for_exercise(pain_level, exercise_id, routine_id):
+    """sets exercise_pain in ExerciseRoutine based on user input"""
+    
+    # selects the appropriate record to add pain level to
+    exroutine = ExerciseRoutine.query.filter_by(exercise_id=exercise_id, routine_id=routine_id).one()
+    # makes the pain level addition/replacement if it's already there
+    exroutine.exercise_pain = pain_level
+    db.session.commit()
+
+    return exroutine
 
 ####################QUERIES/GETTING INFO#######################
 

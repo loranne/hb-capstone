@@ -32,7 +32,7 @@ class Exercise(db.Model):
     injuries = db.relationship("InjuryType", secondary="exercise_injury")
     # old way: exercise_injury = db.relationship("ExerciseInjury")
     routines = db.relationship("Routine", secondary="exercise_routine")
-    # old way: exercise_routine = db.relationship("ExerciseRoutine")
+    exercise_routine = db.relationship("ExerciseRoutine")
 
     def __repr__(self):
         return f"<Exercise id={self.exercise_id} name={self.name}>"
@@ -97,7 +97,7 @@ class Routine(db.Model):
     
     users = db.relationship("User")
     exercises = db.relationship("Exercise", secondary="exercise_routine")
-    # old way: exercise_routine = db.relationship("ExerciseRoutine")
+    exercise_routine = db.relationship("ExerciseRoutine")
 
     def __repr__(self):
         return f"<Routine id={self.routine_id} date={self.date_created} user_id={self.user_id}>"
@@ -118,7 +118,7 @@ class ExerciseRoutine(db.Model):
     # stores # reps per exercise. take this out if it fails...
     # is nullable!
     exercise_reps = db.Column(db.Integer)
-    # pain levels per exercise in each routine. user input.
+    # pain levels per exercise in each routine. user input. also nullable
     exercise_pain = db.Column(db.String(20))
     
     # DONE: Figure out what needs to happen to the 2 lines below

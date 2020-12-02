@@ -1,9 +1,9 @@
 ### server for HB capstone PT Remix app
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, url_for)
+                   redirect, url_for, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, User, Exercise, Routine, InjuryType
+from model import connect_to_db, User, Exercise, Routine, InjuryType, ExerciseRoutine
 import os
 import crud
 import secrets
@@ -127,10 +127,6 @@ def build_new_routine():
 
     routine_id = new_routine.routine_id
 
-    # needs
-    # get user inputs of time, injury type, equipment
-    # on click, run relevant queries and
-
     # takes us to the routine page
     return redirect(f"/routine/{routine_id}")
 
@@ -140,12 +136,29 @@ def view_routine(routine_id):
 
     routine = Routine.query.get(routine_id)
 
-    ex_for_routine = crud.get_exercises_by_routine(routine_id)
+    list_ex_for_routine = crud.get_exercises_by_routine(routine_id)
 
-    # for exercise in ex_for_routine:
-    #     reps = 
+    # append ex_reps to exercise object in python
+    # we're going to declare that there's a part of the exercise object in PYTHON, not the db
+    # that is reps, add reps from ExerciseRoutine table into that slot
+    # pluralize association table names
 
-    return render_template("routine.html", exercises=ex_for_routine)
+    for exercise in list_ex_for_routine:
+        relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine_id).first()
+        exercise.reps = relationship.exercise_reps
+
+        # exroutines = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine_id).all() 
+
+    return render_template("routine.html", exercises=list_ex_for_routine, routine_id=routine_id)
+
+
+@app.route("/routine/<routine_id>", methods=["POST"])
+def update_exercise_pain(routine_id):
+    """User clicks button, button changes and updates exercise_pain in ExerciseRoutine"""
+
+    utilities.print_color(request.form.get("pain_level"))
+
+    return jsonify({"status": "okay"})
 
 
 @app.route("/all-exercises")
