@@ -110,9 +110,15 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     for exercise in exercise_choice:
         add_exercise_to_routine(exercise.exercise_id, routine.routine_id)
         reps = int(time_per_exercise / exercise.duration)
+        max_reps = exercise.max_reps
+        if exercise in prev_routine.exercises:
+            # sets relationship variable
+            relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=prev_routine.routine_id).first()
+            if relationship.exercise_pain == "neutral":
+                max_reps = int(max_reps / 2)
         # if that exceeds max reps, reduce to max reps
-        if reps > exercise.max_reps:
-            reps = exercise.max_reps
+        if reps > max_reps:
+            reps = max_reps
 
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine.routine_id).first()
 
