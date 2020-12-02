@@ -157,6 +157,7 @@ def update_exercise_pain(routine_id):
     """User clicks button, button changes and updates exercise_pain in ExerciseRoutine"""
 
     utilities.print_color(request.form.get("pain_level"))
+    
 
     return jsonify({"status": "okay"})
 
