@@ -3,6 +3,7 @@
 from model import db, Exercise, User, InjuryType, ExerciseInjury, ExerciseRoutine, Routine
 from datetime import datetime 
 import random
+import utilities
 
 import server
 from sqlalchemy.orm.exc import NoResultFound
@@ -46,7 +47,7 @@ def create_injury_type(name, location):
 def create_routine(user_id, duration, datetime=datetime.now()):
     """Create a new routine record"""
 
-    #TODO: Find out if user_id is all I need to pass in here. The only other things that go here are routine_id and date created
+    #DONE: Find out if user_id is all I need to pass in here. The only other things that go here are routine_id and date created
     # I'm not sure about datetime here
 
     routine = Routine(user_id=user_id, duration=duration, date_created=datetime)
@@ -59,10 +60,25 @@ def create_routine(user_id, duration, datetime=datetime.now()):
 def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     """Creates new routine with specific parameters"""
 
+    # calls function to get previous routine object. yes, we have the object
+    prev_routine = get_prev_routine(user_id)
+    utilities.print_color(prev_routine)
+
+    # List of all possible exercises by injury
+    exercise_pool = get_exercises_by_injury(inj_type_id)
+    #call list on exercise_pool to treat like a python list of objects
+    exercise_pool = list(exercise_pool)
+
+    for exercise in exercise_pool:
+        if exercise in prev_routine.exercises:
+            relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=prev_routine.routine_id).first()
+            if relationship.exercise_pain == "negative":
+                exercise_pool.remove(exercise)
+
     duration = int(duration)
     # 2 exercises per 5 min block 
-    num_exercises = int(int(duration) / 5 * 2)
-    print(f"No. of exercises is {num_exercises}")
+    num_exercises = int(duration / 5 * 2)
+    utilities.print_color(f"No. of exercises is {num_exercises}")
 
     time_per_exercise = int((duration / num_exercises) * 60)
     print(time_per_exercise)
@@ -72,8 +88,12 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     print(routine)
 
     # exercises to choose from = all exercises based on injury type
-    exercises = get_exercises_by_injury(inj_type_id)
+    exercises = exercise_pool
     print(exercises)
+    
+    num_exercises = min(num_exercises, len(exercise_pool))
+    print(num_exercises)
+    
 
     # variable exercise_choice should be list of randomly chosen exercises from 
     # line above, based on num_exercises
@@ -86,13 +106,15 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     # set up exerciseroutine relationship for each exercise chosen
 
     # loop over that list of randomly chosen exercises
-    #TODO: FIX MATH
+    #DONE: FIX MATH
     for exercise in exercise_choice:
         add_exercise_to_routine(exercise.exercise_id, routine.routine_id)
         reps = int(time_per_exercise / exercise.duration)
-        # print(reps)
+        # if that exceeds max reps, reduce to max reps
+        if reps > exercise.max_reps:
+            reps = exercise.max_reps
+
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine.routine_id).first()
-        # print(relationship)
 
         #TODO: if relationship, just in case there is no match for ex and routine ids
         if relationship:
@@ -128,6 +150,13 @@ def logout_user():
     # user = User.query.get(user_id)
 
     del session["user"]
+
+def get_prev_routine(user_id):
+    """Get the last routine that this user generated"""
+
+    prev_routine = Routine.query.order_by(Routine.date_created.desc()).filter(Routine.user_id==user_id).first()
+
+    return prev_routine
 
 
 def get_user_by_email(email):

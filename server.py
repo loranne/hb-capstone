@@ -3,7 +3,7 @@
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, User, Exercise, Routine, InjuryType, ExerciseRoutine
+from model import connect_to_db, db, User, Exercise, Routine, InjuryType, ExerciseRoutine
 import os
 import crud
 import secrets
@@ -158,7 +158,26 @@ def update_exercise_pain(routine_id):
 
     utilities.print_color(request.form.get("pain_level"))
     
+    # gets pain level string from post request
+    pain_level = request.form.get("pain_level")
 
+    # gets the ID of the button from the post request
+    id_string = request.form.get("id")
+    
+    # splits the ID string into a list
+    list_of_id_parts = id_string.split("-")
+    
+    # gets the exercise id and routine ids out of that list
+    ex_id = list_of_id_parts[1]
+    rt_id = list_of_id_parts[2]
+
+    # gets the right relationship record from the DB
+    relationship = ExerciseRoutine.query.filter_by(exercise_id=ex_id, routine_id=rt_id).first()
+    # adds the pain level info from the post request to the db and commits
+    relationship.exercise_pain = pain_level
+    db.session.commit()
+
+    utilities.print_color(relationship)
     return jsonify({"status": "okay"})
 
 

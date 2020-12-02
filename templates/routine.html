@@ -9,48 +9,70 @@
         {% for exercise in exercises %}
             <p>{{ exercise.name }}</p>
             <p>Description: {{ exercise.description }}</p>
-            {#<!-- Reps: {{ exerciseroutine.max_reps }}<br> -->#}
             <p>Max reps: {{ exercise.max_reps }}</p>
             <p>Exercise ID: {{exercise.exercise_id }}</p>
             <p>Reps: {{ exercise.reps }}</p>
             <p>{{ exercise.img }}</p>
             <p>How did this exercise go?</p>
-            <div><input type="submit" name="yay" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!"></div>
-            <div><input type="submit" name="meh" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay"></div>
-            <div><input type="submit" name="boo" id="boo-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad"></div>
+            <div><input type="submit" class="yay" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!"></div>
+            <div><input type="submit" class="meh" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay"></div>
+            <div><input type="submit" class="ouch" id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad"></div>
         {% endfor %}
         </div>
     <script>
-        alert("This is a JS alert!")
-        const buttonyay = $('#yay-1-5')
-        console.log(buttonyay)
+        const buttonyay = $('.yay');
+        console.log(buttonyay);
         buttonyay.on('click', (evt) => {
             evt.preventDefault();
-            console.log("click happened")
-            $.post('/routine/5', {'pain_level': 'positive'}, (res) => {
+            console.log(evt.target.id);
+            
+            var id_string = evt.target.id;
+            var string_array = id_string.split("-");
+            const routine = string_array[2]
+            
+            $.post('/routine/' + routine, {'pain_level': 'positive', 'id': evt.target.id}, (res) => {
                 console.log(res['status']);
-
             })
             // evt.target
             // on click, needs to update ExerciseRoutine.exercise_pain
             // change style of button happens in here
         });
 
-        console.log(buttonyay)
+        const buttonmeh = $('.meh');
+        console.log(buttonmeh);
+        buttonmeh.on('click', (evt) => {
+            evt.preventDefault();
+            console.log(evt.target.id);
+            
+            var id_string = evt.target.id;
+            var string_array = id_string.split("-");
+            // gets routine info from button id string
+            const routine = string_array[2]
+            
+            $.post('/routine/' + routine, {'pain_level': 'neutral', 'id': evt.target.id}, (res) => {
+                console.log(res['status']);
+            })
+            // evt.target
+            // on click, needs to update ExerciseRoutine.exercise_pain
+            // change style of button happens in here
+        });
 
-        // $('button.does-something').on('click', (evt) => {
-        //     const button = $(evt.target);
-        // })
-        // const buttonmeh = $('meh-');
-        // buttonmeh.on('click', (evt) => {
-        //     evt.preventDefault();
-        //     // console.log(exercise.exercise_id);
-        // });
-
-        // const buttonboo = $('boo-');
-        // buttonboo.on('click', (evt) => {
-        //     evt.preventDefault();
-        //     // console.log(exercise.exercise_id);
-        // });
+        const buttonouch = $('.ouch');
+        console.log(buttonouch);
+        buttonouch.on('click', (evt) => {
+            evt.preventDefault();
+            console.log(evt.target.id);
+            
+            var id_string = evt.target.id;
+            var string_array = id_string.split("-");
+            const routine = string_array[2]
+            
+            $.post('/routine/' + routine, {'pain_level': 'negative', 'id': evt.target.id}, (res) => {
+                console.log(res['status']);
+            })
+            // evt.target
+            // on click, needs to update ExerciseRoutine.exercise_pain
+            // change style of button happens in here
+        });
     </script>
     {% endblock %}

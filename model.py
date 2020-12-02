@@ -126,7 +126,7 @@ class ExerciseRoutine(db.Model):
     exercises = db.relationship("Exercise")
 
     def __repr__(self):
-        return f"<ExerciseRoutine exroutine_id={self.exroutine_id} routine_id={self.routine_id} exercise_id={self.exercise_id}>"
+        return f"<ExerciseRoutine exroutine_id={self.exroutine_id} routine_id={self.routine_id} exercise_id={self.exercise_id} ex_pain={self.exercise_pain}>"
 
 
 class User(db.Model):
