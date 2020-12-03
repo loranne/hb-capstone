@@ -174,6 +174,7 @@ def update_exercise_pain(routine_id):
     relationship = ExerciseRoutine.query.filter_by(exercise_id=ex_id, routine_id=rt_id).first()
     # adds the pain level info from the post request to the db and commits
     relationship.exercise_pain = pain_level
+    utilities.print_color(pain_level)
     db.session.commit()
 
     utilities.print_color(relationship)
