@@ -9,13 +9,13 @@
       available, and whether or not you have equipment on hand. It doesn't replace 
       visits to your phyiscal therapist, but will help you get through your exercises 
       at home.</p>
-    
-    <p>Please log in or register for an account to build your routine.</p>
   </div>
 
   <div>
     <!-- If there's a user session, don't show the login/register form -->
     {% if session["user"] is sameas false %}
+    <p>Please log in or register for an account to build your routine.</p>
+    
     <form action="/" method="POST">
         <p>
             Email <input type="text" name="email" required=True>

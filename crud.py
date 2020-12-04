@@ -80,9 +80,6 @@ def build_routine(user_id, duration, inj_type_id, list_ex_types, equip, datetime
         if exercise.exercise_type not in list_ex_types:
             exercise_pool.remove(exercise)
 
-    #call list on exercise_pool to treat like a python list of objects
-    # exercise_pool = list(exercise_pool)
-
     # this loop eliminates recently "bad" feeling exercises from the pool
     for exercise in exercise_pool:
         if exercise in prev_routine.exercises:
