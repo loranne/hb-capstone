@@ -22,6 +22,7 @@ class Exercise(db.Model):
                         nullable=False)
     duration = db.Column(db.Integer,
                         nullable=False)
+    exercise_type = db.Column(db.String)
     equip_req = db.Column(db.Boolean,
                         nullable=False)
     freq = db.Column(db.Integer)

@@ -57,7 +57,7 @@ def create_routine(user_id, duration, datetime=datetime.now()):
     
     return routine
 
-def build_routine(user_id, duration, inj_type_id, equip, datetime=datetime.now()):
+def build_routine(user_id, duration, inj_type_id, list_ex_types, equip, datetime=datetime.now()):
     """Creates new routine with specific parameters"""
 
     # calls function to get previous routine object. yes, we have the object
@@ -73,6 +73,12 @@ def build_routine(user_id, duration, inj_type_id, equip, datetime=datetime.now()
         # narrows down based on equipment constraint
         if exercise.equip_req == equip:
             exercise_pool.append(exercise)
+    
+    # checks to make sure exercise type is in the list of focus types input by user
+    for exercise in exercise_pool:
+        # if it's not in the input list, throw it out of exercise_pool
+        if exercise.exercise_type not in list_ex_types:
+            exercise_pool.remove(exercise)
 
     #call list on exercise_pool to treat like a python list of objects
     # exercise_pool = list(exercise_pool)

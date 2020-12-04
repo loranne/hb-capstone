@@ -9,7 +9,7 @@
         color: yellow;
     }
 </style>
-    <h1>Your Routine - </h1>
+    <h1>Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
         <div>
         {% for exercise in exercises %}
             <p>{{ exercise.name }}</p>

@@ -122,6 +122,9 @@ def build_new_routine():
     # injury_id = injury.inj_type_id
     duration = request.form.get("duration")
 
+    list_ex_types = request.form.getlist("exercise_type")
+    utilities.print_color(list_ex_types)
+
     # get equipment y or n
     equip = request.form.get("equip")
     # convert to boolean values
@@ -135,7 +138,7 @@ def build_new_routine():
     # have to update algo to include this
     # has_equip = request.form.get("equip")
 
-    new_routine = crud.build_routine(session["user"], duration, injury.inj_type_id, equip)
+    new_routine = crud.build_routine(session["user"], duration, injury.inj_type_id, list_ex_types, equip)
 
     routine_id = new_routine.routine_id
 
@@ -149,6 +152,7 @@ def view_routine(routine_id):
     routine = Routine.query.get(routine_id)
 
     list_ex_for_routine = crud.get_exercises_by_routine(routine_id)
+    utilities.print_color(list_ex_for_routine)
 
     # append ex_reps to exercise object in python
     # we're going to declare that there's a part of the exercise object in PYTHON, not the db
@@ -159,7 +163,7 @@ def view_routine(routine_id):
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine_id).first()
         exercise.reps = relationship.exercise_reps
 
-    return render_template("routine.html", exercises=list_ex_for_routine, routine_id=routine_id)
+    return render_template("routine.html", exercises=list_ex_for_routine, routine_id=routine_id, date=routine.date_created)
 
 
 @app.route("/routine/<routine_id>", methods=["POST"])
