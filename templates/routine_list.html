@@ -7,7 +7,7 @@
     <h1>Your Routines</h1>
         <div>
         {% for routine in routines %}
-            <p><a href="/routine/{{ routine.routine_id }}">Date: {{ routine.date_created.strftime('%Y-%m-%d') }}</a></p>
+            <p><a href="/routine/{{ routine.routine_id }}">Date: {{ routine.date_created.strftime('%m/%d/%Y') }}</a></p>
             {% for exercise in routine.exercises %}
             <ul>
                 <li>{{ exercise.name }}</li>

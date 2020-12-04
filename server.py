@@ -115,16 +115,27 @@ def build_new_routine():
     
     # get user input from the form
     injury_name = request.form.get("injury")
-    utilities.print_color(injury_name)
+
+    # find the injury record that corresponds to user input
     injury = InjuryType.query.filter_by(name=injury_name).one()
-    utilities.print_color(injury)
+
     # injury_id = injury.inj_type_id
     duration = request.form.get("duration")
+
+    # get equipment y or n
+    equip = request.form.get("equip")
+    # convert to boolean values
+    if equip == "yes":
+        equip = True
+    else: 
+        equip = False
+    utilities.print_color(equip)
+
     print("check form name/details")
     # have to update algo to include this
     # has_equip = request.form.get("equip")
 
-    new_routine = crud.build_routine(session["user"], duration, injury.inj_type_id)
+    new_routine = crud.build_routine(session["user"], duration, injury.inj_type_id, equip)
 
     routine_id = new_routine.routine_id
 

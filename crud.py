@@ -57,7 +57,7 @@ def create_routine(user_id, duration, datetime=datetime.now()):
     
     return routine
 
-def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
+def build_routine(user_id, duration, inj_type_id, equip, datetime=datetime.now()):
     """Creates new routine with specific parameters"""
 
     # calls function to get previous routine object. yes, we have the object
@@ -65,10 +65,19 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
     utilities.print_color(prev_routine)
 
     # List of all possible exercises by injury
-    exercise_pool = get_exercises_by_injury(inj_type_id)
-    #call list on exercise_pool to treat like a python list of objects
-    exercise_pool = list(exercise_pool)
+    exercises_for_injury = get_exercises_by_injury(inj_type_id)
 
+    # empty python list of valid exercises
+    exercise_pool = []
+    for exercise in exercises_for_injury:
+        # narrows down based on equipment constraint
+        if exercise.equip_req == equip:
+            exercise_pool.append(exercise)
+
+    #call list on exercise_pool to treat like a python list of objects
+    # exercise_pool = list(exercise_pool)
+
+    # this loop eliminates recently "bad" feeling exercises from the pool
     for exercise in exercise_pool:
         if exercise in prev_routine.exercises:
             relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=prev_routine.routine_id).first()
@@ -124,7 +133,7 @@ def build_routine(user_id, duration, inj_type_id, datetime=datetime.now()):
 
         relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=routine.routine_id).first()
 
-        #TODO: if relationship, just in case there is no match for ex and routine ids
+        # if relationship, just in case there is no match for ex and routine ids
         if relationship:
             relationship.exercise_reps = reps
             print(relationship.exercise_reps)
