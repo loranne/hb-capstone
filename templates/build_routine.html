@@ -10,6 +10,7 @@
     <form name="build-routine", method="POST">
         <label>Select your injury: </label>
         <select name="injury">
+            <option value="">--</option>
             {% for injury in injuries %}
             <option value="{{ injury.name}}">{{ injury.name }}</option>
             {% endfor %}
@@ -17,7 +18,8 @@
 
     <!-- Form for user to choose how long a routine -->
         <label>Duration (min): </label>
-        <select name="duration">
+        <select name="duration" required=True>
+            <option value="">--</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
