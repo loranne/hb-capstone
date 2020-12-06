@@ -40,7 +40,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="endurance",
         freq=3,
-        max_reps=20)
+        max_reps=20,
+        img="/static/img/crab-walk.jpg")
     db.session.add(ex1)
 
     ex2 = Exercise(name="Ankle Flex with Resistance Band",
@@ -49,7 +50,8 @@ def create_exercise():
         equip_req=True,
         exercise_type="strength",
         freq=7,
-        max_reps=20)
+        max_reps=20,
+        img="/static/img/ankle-flex.jpg")
     db.session.add(ex2)
 
     ex3 = Exercise(name="Ankle Circles",
@@ -58,7 +60,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="flexibility",
         freq=7,
-        max_reps=20)
+        max_reps=20,
+        img="/static/img/ankle-circles.jpg")
     db.session.add(ex3)
 
     ex4 = Exercise(name="Squats (supported)",
@@ -67,7 +70,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="strength",
         freq=3,
-        max_reps=10)
+        max_reps=10,
+        img="/static/img/supported-squat.jpg")
     db.session.add(ex4)
 
     ex5 = Exercise(name="Step Up",
@@ -76,7 +80,8 @@ def create_exercise():
         equip_req=True,
         exercise_type="balance",
         freq=4,
-        max_reps=20)
+        max_reps=20,
+        img="/static/img/step-up.jpg")
     db.session.add(ex5)
 
     ex6 = Exercise(name="Standing Heel Raises",
@@ -85,7 +90,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="strength",
         freq=7,
-        max_reps=20)
+        max_reps=20,
+        img="/static/img/heel-raise.jpg")
     db.session.add(ex6)
 
     ex7 = Exercise(name="Walking",
@@ -94,7 +100,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="endurance",
         freq=7,
-        max_reps=30)
+        max_reps=30,
+        img="/static/img/walking.jpg")
     db.session.add(ex7)
 
     ex8 = Exercise(name="Arch Lifts",
@@ -103,7 +110,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="flexibility",
         freq=7,
-        max_reps=15)
+        max_reps=15,
+        img="/static/img/arch-lift.jpg")
     db.session.add(ex8)
     
     ex9 = Exercise(name="Toe Yoga",
@@ -112,7 +120,8 @@ def create_exercise():
         equip_req=False,
         exercise_type="flexibility",
         freq=7,
-        max_reps=20)
+        max_reps=20,
+        img="/static/img/toe-yoga.jpg")
     db.session.add(ex9)
 
     ex10 = Exercise(name="Seated Calf Stretch",
