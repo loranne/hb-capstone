@@ -71,14 +71,25 @@ def build_routine(user_id, duration, inj_type_id, list_ex_types, equip, datetime
     exercise_pool = []
     for exercise in exercises_for_injury:
         # narrows down based on equipment constraint
-        if exercise.equip_req == equip:
+        # if user has equipment, great! just add the exercise to the pool
+        if equip == True:
             exercise_pool.append(exercise)
-    
+        # if user doesn't have equipment
+        else:
+            # AND the exercise doesn't require equipment, then add it
+            if exercise.equip_req == False:
+                exercise_pool.append(exercise)
+            
+    utilities.print_color(exercise_pool)
+
     # checks to make sure exercise type is in the list of focus types input by user
+    utilities.print_color(list_ex_types)
     for exercise in exercise_pool:
         # if it's not in the input list, throw it out of exercise_pool
         if exercise.exercise_type not in list_ex_types:
             exercise_pool.remove(exercise)
+    
+    utilities.print_color(exercise_pool)
 
     # this loop eliminates recently "bad" feeling exercises from the pool
     for exercise in exercise_pool:
@@ -86,6 +97,8 @@ def build_routine(user_id, duration, inj_type_id, list_ex_types, equip, datetime
             relationship = ExerciseRoutine.query.filter_by(exercise_id=exercise.exercise_id, routine_id=prev_routine.routine_id).first()
             if relationship.exercise_pain == "negative":
                 exercise_pool.remove(exercise)
+    
+    utilities.print_color(f"Line 94. exericse pool is {exercise_pool}")
 
     duration = int(duration)
     # 2 exercises per 5 min block 
@@ -97,20 +110,16 @@ def build_routine(user_id, duration, inj_type_id, list_ex_types, equip, datetime
 
     # the routine I'm adding exercises to
     routine = create_routine(user_id, duration, datetime)
-    print(routine)
-
-    # exercises to choose from = all exercises based on injury type
-    exercises = exercise_pool
-    print(exercises)
+    utilities.print_color(routine)
     
     num_exercises = min(num_exercises, len(exercise_pool))
-    print(num_exercises)
+    utilities.print_color(f"No. of exercises is {num_exercises}")
     
 
     # variable exercise_choice should be list of randomly chosen exercises from 
     # line above, based on num_exercises
-    exercise_choice = random.sample(exercises, k=num_exercises)
-    print(exercise_choice)
+    exercise_choice = random.sample(exercise_pool, k=num_exercises)
+    utilities.print_color(exercise_choice)
 
     #DONE: decide if it makes more sense to call add_exercises_to_routine within
     #loop, or before loop—within wins

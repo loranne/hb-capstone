@@ -1,0 +1,10 @@
+/* my custom CSS */
+
+.img-fluid {
+    max-width: 600px;
+    height: auto;
+}
+
+.selected {
+    color: yellow;
+}

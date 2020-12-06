@@ -130,7 +130,8 @@ def create_exercise():
         equip_req=True,
         exercise_type="flexibility",
         freq=7,
-        max_reps=1)
+        max_reps=1,
+        img="/static/img/seated-calf-stretch.jpg")
     db.session.add(ex10)
 
     db.session.commit()

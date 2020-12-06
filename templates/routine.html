@@ -4,11 +4,15 @@
 {% block title %}PT Remix - Your routine{% endblock %}
 
 {% block body %}
-<style>
-    .selected {
+<!-- <style>
+    /* .selected {
         color: yellow;
-    }
-</style>
+    } */
+    /* .img-fluid {
+        max-width: 500px;
+        height: auto;
+    } */
+</style> -->
     <h1>Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
         <div>
         {% for exercise in exercises %}
@@ -17,7 +21,7 @@
             <p>Max reps: {{ exercise.max_reps }}</p>
             <p>Exercise ID: {{exercise.exercise_id }}</p>
             <p>Reps: {{ exercise.reps }}</p>
-            <p>{{ exercise.img }}</p>
+            <p><img src="{{ exercise.img }}" class="img-fluid" alt="Responsive image"></p>
             <p>How did this exercise go?</p>
             <div class="yay {{ exercise.exercise_id }} pain-button" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!">Great!</div>
             <div class="meh {{ exercise.exercise_id }} pain-button" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay">Okay</div>
