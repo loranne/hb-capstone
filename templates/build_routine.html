@@ -9,7 +9,7 @@
     <!-- For this one, need to get injury types from DB using app route -->
     <form name="build-routine", method="POST">
         <label>Select your injury: </label>
-        <select name="injury">
+        <select class="dropdown-injury" data-toggle="popover" data-trigger="focus" title="What's this?" data-content="What injury or condition are you treating?" name="injury">
             <option value="">--</option>
             {% for injury in injuries %}
             <option value="{{ injury.name}}">{{ injury.name }}</option>
@@ -55,4 +55,9 @@
    
         <input type="submit" name="build-routine" value="Build my routine">
     </form>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+    </script>
     {% endblock %}
