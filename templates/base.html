@@ -39,30 +39,29 @@
       
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand logo">
-          <img src ="../static/img/logo-horizontal-white-small.png" height=50px padding=0px>
+          <img src ="../static/img/logo-square-blue-75.png" height=75px padding=0px>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+        
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           {% if session["user"] %}
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-button btn btn-primary" href="/" role="button">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-button btn btn-primary" href="/build-routine" role="button">Build a routine</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/your-routines">Your routines</a>
+              <a class="nav-button btn btn-primary" href="/your-routines" role="button">Your routines</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/all-exercises">Browse exercises</a>
+              <a class="nav-button btn btn-primary" href="/all-exercises" role="button">Browse exercises</a>
             </li>
             <li class="nav-item">
-              <!-- <button class="btn btn-primary navbar-btn" href="/goodbye">Log out</button> -->
               <a class="nav-button btn btn-primary" href="/goodbye" role="button">Log out</a>
             </li>
           </ul>

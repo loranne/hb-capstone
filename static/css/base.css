@@ -1,5 +1,23 @@
 /* my custom CSS */
 
+.my-primary{
+    color: 
+}
+
+.bg-primary {
+    background-color: #09c7fb;
+    background-image: linear-gradient(315deg, #09c7fb 0%, #93fb9d 74%);
+}
+
+.navbar-expand-lg .navbar-nav .nav-button {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
 .ex-reps {
     margin-top: 25px;
     margin-bottom: 25px;
