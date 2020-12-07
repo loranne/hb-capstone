@@ -32,9 +32,15 @@
                 <div class="ex-reps">Reps: {{exercise.reps }}</div>
                 <div><label>How did this exercise go?</label></div>
                 <div class="btn-group row">
-                    <button class="yay {{ exercise.exercise_id }} pain-button btn btn-outline-success" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!">Great!</button>
-            <button class="meh {{ exercise.exercise_id }} pain-button btn btn-outline-warning" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay">Okay</button>
-            <button class="ouch {{ exercise.exercise_id }} pain-button btn btn-outline-danger" id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad">Bad</button>
+                    <button class="yay {{ exercise.exercise_id }} pain-button btn btn-outline-success" 
+                        id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" 
+                        value="Great!">Great! <div class="smiley">&#128512;</div></button>
+                    <button class="meh {{ exercise.exercise_id }} pain-button btn btn-outline-warning" 
+                        id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" 
+                        value="Okay">Okay <div class="smiley">&#128528;</div></button>
+                    <button class="ouch {{ exercise.exercise_id }} pain-button btn btn-outline-danger" 
+                        id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" 
+                        value="Bad">Bad <div class="smiley">&#128553;</div></button>
                 </div>
                 </div>
             <!-- <p>Max reps: {{ exercise.max_reps }}</p> -->
