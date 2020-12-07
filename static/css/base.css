@@ -2,6 +2,7 @@
 
 .ex-reps {
     margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .ex-description {
@@ -18,3 +19,14 @@
     color: yellow;
 }
 
+.card {
+    border: none;
+}
+
+#routine-card{
+    margin-top: 25px;
+}
+
+#ex-card {
+    margin-top: 25px;
+}
