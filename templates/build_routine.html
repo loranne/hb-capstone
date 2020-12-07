@@ -4,57 +4,94 @@
 {% block title %}PT Remix - Build a routine {% endblock %}
 
 {% block body %}
-    <h1>Build a New Routine</h1>
 
     <!-- For this one, need to get injury types from DB using app route -->
-    <form name="build-routine", method="POST">
-        <label>Select your injury: </label>
-        <select class="dropdown-injury" data-toggle="popover" data-trigger="focus" title="What's this?" data-content="What injury or condition are you treating?" name="injury">
-            <option value="">--</option>
-            {% for injury in injuries %}
-            <option value="{{ injury.name}}">{{ injury.name }}</option>
-            {% endfor %}
-        </select>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Build a New Routine</h1>
 
-    <!-- Form for user to choose how long a routine -->
-        <label>Duration (min): </label>
-        <select name="duration" required=True>
-            <option value="">--</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="30">30</option>
-            <option value="35">35</option>
-            <option value="40">40</option>
-            <option value="45">45</option>
-            <option value="50">50</option>
-            <option value="55">55</option>
-            <option value="60">60</option>
-        </select>
+            <form name="build-routine", method="POST">
+                <div class="form-row">
+                    <div class="form-group col-9">
+                    <label class="col-form-label">Select your injury: </label>
+                    <select class="form-control" data-toggle="popover" data-trigger="focus" 
+                    title="What's this?" data-content="What injury or condition are you treating?" 
+                    name="injury" required=True>
 
-    <!-- Form for user to select focus -->
-        <p>What would you like to focus on?</p>
-        <input type="checkbox" name="exercise_type" value="strength"> Strength<br>
+                        <option value="">--</option>
+                        {% for injury in injuries %}
+                        <option value="{{ injury.name}}">{{ injury.name }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
 
-        <input type="checkbox" name="exercise_type" value="endurance"> Endurance<br>
+            <!-- Form for user to choose how long a routine -->
+                <div class="form-group col-3">
+                <label class="col-form-label">Duration (min): </label>
+                <select class="form-control" data-toggle="popover" data-trigger="focus" 
+                    title="What's this?" data-content="How long (in minutes) would you like your routine to be?" 
+                    name="duration" required=True>
+                    
+                    <option value="">--</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                    <option value="60">60</option>
+                </select>
+                </div>
+                </div>
+
+            <!-- Form for user to select focus -->
+            <div class="form-group row"><label class="form-label">What would you like to focus on?</label></div>
+
+                <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="exercise_type_1" name="exercise_type" value="strength">
+                <label class="form-check-label" for="exercise_type_1">Strength</label>
+                </div>
+
+                <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="exercise_type_2" name="exercise_type" value="endurance">
+                <label class="form-check-label" for="exercise_type_2">Endurance</label>
+                </div>
+                
+                <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="exercise_type_3" name="exercise_type" value="balance">
+                <label class="form-check-label" for="exercise_type_3">Balance</label>
+                </div>
+                
+                <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="exercise_type_4" name="exercise_type" value="flexibility">
+                <label class="form-check-label" for="exercise_type_4">Flexibility</label>
+                </div>
+
+            <!-- Form for user to select equipment y/n -->
+                <div class="form-group row"><label class="form-label">Do you have equipment?</label></div>
+                <div class="form-check-inline">
+                <input class="form-check-input" type="radio" name="equip" id="equip_yes" value="yes">
+                <label class="form-check-label" for="equip_no">Yes</label>
+                </div>
+
+                <div class="form-check-inline">
+                <input class="form-check-input" type="radio" name="equip" id="equip_no" value="no">
+                <label class="form-check-label" for="equip_no">No</label>
+                </div>
         
-        <input type="checkbox" name="exercise_type" value="balance"> Balance<br>
-
-        <input type="checkbox" name="exercise_type" value="flexibility"> Flexibility<br>
-
-    <!-- Form for user to select equipment y/n -->
-        <label>Do you have equipment?</label>
-        
-        <input type="radio" name="equip" value="yes">
-        <label>Yes</label>
-
-        <input type="radio" name="equip" value="no">
-        <label>No</label>
-   
-        <input type="submit" name="build-routine" value="Build my routine">
-    </form>
+                <div class="form-group row">
+                    <button type="submit" class="btn btn-success" name="build-routine" value="Build my routine">Build my routine</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <script>
         $(function () {
             $('[data-toggle="popover"]').popover();

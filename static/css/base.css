@@ -1,10 +1,20 @@
 /* my custom CSS */
 
+.ex-reps {
+    margin-top: 25px;
+}
+
+.ex-description {
+    margin-bottom: 25px;
+}
+
 .img-fluid {
-    max-width: 600px;
+    max-width: 500px;
+    max-height: 500px;
     height: auto;
 }
 
 .selected {
     color: yellow;
 }
+

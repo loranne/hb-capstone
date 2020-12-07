@@ -5,6 +5,9 @@
 
 {% block body %}
 <!-- <style>
+    .ex-reps {
+        margin-top: 25px
+    }
     /* .selected {
         color: yellow;
     } */
@@ -13,21 +16,41 @@
         height: auto;
     } */
 </style> -->
-    <h1>Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
-        <div>
+<div class="container-fluid">
+    <div class="card">
+    <h1 class="card-title">Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
+        <div class="card-body">
         {% for exercise in exercises %}
-            <p>{{ exercise.name }}</p>
-            <p>Description: {{ exercise.description }}</p>
-            <p>Max reps: {{ exercise.max_reps }}</p>
-            <p>Exercise ID: {{exercise.exercise_id }}</p>
-            <p>Reps: {{ exercise.reps }}</p>
-            <p><img src="{{ exercise.img }}" class="img-fluid" alt="Responsive image"></p>
-            <p>How did this exercise go?</p>
-            <div class="yay {{ exercise.exercise_id }} pain-button" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!">Great!</div>
-            <div class="meh {{ exercise.exercise_id }} pain-button" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay">Okay</div>
-            <div class="ouch {{ exercise.exercise_id }} pain-button" id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad">Bad</div>
+        <div class="card">  
+            <div class="row">
+                <div class="col-6"><h2 class="card-title">{{ exercise.name }}</h2></div>
+                <!-- <div class="col-6">Reps: {{ exercise.reps }}</div> -->
+            </div>
+            <div class="row">
+                <div class="col-5 ex-description">
+                Description: {{ exercise.description }}
+                <div class="ex-reps">Reps: {{exercise.reps }}</div>
+                </div>
+            <!-- <p>Max reps: {{ exercise.max_reps }}</p> -->
+            <!-- <p>Exercise ID: {{exercise.exercise_id }}</p> -->
+            <div class="col-7">
+                <img src="{{ exercise.img }}" class="img-fluid img-responsive" alt="Responsive image"></p>
+                </div>
+            </div>
+            
+            <label>How did this exercise go?</label>
+            <div class="btn-group row">
+                <div class="col-6">
+            <button class="yay {{ exercise.exercise_id }} pain-button btn btn-outline-success" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!">Great!</button>
+            <button class="meh {{ exercise.exercise_id }} pain-button btn btn-outline-warning" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay">Okay</button>
+            <button class="ouch {{ exercise.exercise_id }} pain-button btn btn-outline-danger" id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad">Bad</button>
+            </div>    
+        </div>
+        </div>
         {% endfor %}
         </div>
+        </div>
+
     <script>
         const painButton = $('.pain-button');
         console.dir(painButton);
@@ -43,9 +66,13 @@
                 // testing to see if my pain level settings are working
                 console.log(list_id_string[0]);
                 console.log(res['status']);
-                $('.' + list_id_string[1]).removeClass('selected');
-                $('#' + id_string).addClass('selected');
+                // if (list_id_string[0] === "yay") {
+                //     $('.' + list_id_string[1]).removeClass('active');
+                //     $('#' + id_string).addClass('active');
+                $('.' + list_id_string[1]).removeClass('active');
+                $('#' + id_string).addClass('active');
             })
         });
     </script>
+    </div>
     {% endblock %}

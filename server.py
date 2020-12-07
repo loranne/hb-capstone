@@ -99,7 +99,7 @@ def user_logout():
 @app.route("/build-routine", methods=["GET"])
 def view_builder_page():
     """View routine builder page"""
-    flash(f"User id is: {session['user']}")
+    utilities.print_color(f"User id is: {session['user']}")
     utilities.print_color("builder is go")
 
     injuries = crud.get_all_injuries()
