@@ -18,10 +18,10 @@
 </style> -->
 <div class="container-fluid">
     <div class="card">
-    <h1 class="card-title">Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
+    <h1 class="card-title routine-title">Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
         <div class="card-body">
         {% for exercise in exercises %}
-        <div class="card" id="routine-card">  
+        <div class="card routine-card" id="routine-card">  
             <div class="row">
                 <div class="col-6"><h2 class="card-title">{{ exercise.name }}</h2></div>
                 <!-- <div class="col-6">Reps: {{ exercise.reps }}</div> -->
@@ -44,14 +44,14 @@
                 </div>
             </div>
             
-            <label>How did this exercise go?</label>
+            <!-- <label>How did this exercise go?</label>
             <div class="btn-group row">
                 <div class="col-6">
-            <button class="yay {{ exercise.exercise_id }} pain-button btn btn-outline-success" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!">Great!</button>
-            <button class="meh {{ exercise.exercise_id }} pain-button btn btn-outline-warning" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay">Okay</button>
-            <button class="ouch {{ exercise.exercise_id }} pain-button btn btn-outline-danger" id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad">Bad</button>
-            </div>    
-        </div>
+                    <button class="yay {{ exercise.exercise_id }} pain-button btn btn-outline-success" id="yay-{{ exercise.exercise_id }}-{{ routine_id }}" value="Great!">Great!</button>
+                    <button class="meh {{ exercise.exercise_id }} pain-button btn btn-outline-warning" id="meh-{{ exercise.exercise_id }}-{{ routine_id }}" value="Okay">Okay</button>
+                    <button class="ouch {{ exercise.exercise_id }} pain-button btn btn-outline-danger" id="ouch-{{ exercise.exercise_id }}-{{ routine_id }}" value="Bad">Bad</button>
+                </div>    
+            </div> -->
         </div>
         {% endfor %}
         </div>

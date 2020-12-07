@@ -38,7 +38,11 @@
 }
 
 .card {
-    border: none;
+    border:none;
+}
+
+.routine-card {
+    border: 5px;
 }
 
 #routine-card{
@@ -47,4 +51,24 @@
 
 #ex-card {
     margin-top: 25px;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 15px;
+    margin-left: 0px;
+    margin-top: 25px;
+}
+
+.routine-title {
+    margin-top: 25px;
+    margin-bottom: -40px;
+    text-align: center;
+}
+
+body {
+    font-family: 'Montserrat', 'sans-serif';
 }
