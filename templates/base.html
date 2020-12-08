@@ -40,10 +40,9 @@
 
     <!-- this is where my menu details will go -->
     {% block menu %}
-      
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand logo">
-          <img src ="../static/img/logo-square-blue-75.png" height=75px padding=0px>
+        <a class="navbar-brand logo" href="/">
+          <img src ="../static/img/logo-square-blue-75.png"  padding=0px>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -54,9 +53,6 @@
           {% if session["user"] %}
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-button btn btn-primary" href="/" role="button">Home</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-button btn btn-primary" href="/build-routine" role="button">Build a routine</a>
             </li>
             <li class="nav-item">
@@ -65,6 +61,8 @@
             <li class="nav-item">
               <a class="nav-button btn btn-primary" href="/all-exercises" role="button">Browse exercises</a>
             </li>
+          </ul>
+              <ul class="navbar-nav ml-auto mr-1">
             <li class="nav-item">
               <a class="nav-button btn btn-primary" href="/goodbye" role="button">Log out</a>
             </li>
