@@ -68,6 +68,7 @@
             </li>
           </ul>
         </div>
+        {% endif %}
       </nav>
         <!-- <ul>
           <li><a href="/">Home</a></li>
@@ -76,7 +77,6 @@
           <li><a href="/your-routines">Your routines</a></li>
           <li><a href="/goodbye" name="logout">Log out</a></li>
         </ul> -->
-      {% endif %}
     {% endblock %}
 
     {% for msg in get_flashed_messages() %}

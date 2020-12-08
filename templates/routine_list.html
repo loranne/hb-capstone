@@ -4,16 +4,31 @@
 {% block title %}PT Remix - All your routines{% endblock %}
 
 {% block body %}
-    <h1>Your Routines</h1>
-        <div>
-        {% for routine in routines %}
-            <p><a href="/routine/{{ routine.routine_id }}">Date: {{ routine.date_created.strftime('%m/%d/%Y') }}</a></p>
-            {% for exercise in routine.exercises %}
-            <ul>
-                <li>{{ exercise.name }}</li>
-            </ul>
+<div class="container-fluid">
+    <div class="card">
+    <h1 class="card-title routine-title" style="margin-bottom: 0px;">Your Routines</h1>
+        
+        <div class="card-body">
+        <div class="card">
+            {% for routine in routines %}
+            <h4 class="card-title exercise-title">Date: {{ routine.date_created.strftime('%m/%d/%Y') }}, {{ routine.duration }} min</a></h4>
+            <div class="btn-group row">
+                <button type="button" class="col-2 btn btn-primary" id="view-list" data-toggle="collapse" 
+                    href="" role="button" aria-expanded="false" data-target="#collapse-text-{{ loop.index }}">View list</button>
+                <a type="button" class="col-2 btn btn-primary" id="view-routine" 
+                    href="/routine/{{ routine.routine_id }}" role="button">View routine</a>
+            </div>
+            <div class="collapse" id="collapse-text-{{ loop.index }}">
+                {% for exercise in routine.exercises %}
+                <div class="card-body" style="padding: 10px">
+                    {{ exercise.name }}
+                </div>
+                {% endfor %}
+            </div>
             {% endfor %}
-        {% endfor %}
         </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

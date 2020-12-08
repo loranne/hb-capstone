@@ -69,6 +69,10 @@
     text-align: center;
 }
 
+.exercise-title {
+    margin-top: 25px;
+}
+
 body {
     font-family: 'Montserrat', 'sans-serif';
 }
@@ -78,4 +82,9 @@ body {
     display: inline-block;
     margin-bottom: -7px;
     vertical-align: text-bottom;
+}
+
+.btn-group {
+    margin-top: 10px;
+    margin-bottom: 50px;
 }

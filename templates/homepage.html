@@ -3,12 +3,16 @@
 {% block title %}PT Remix - Home{% endblock %}
 
 {% block body %}
-  <h1>Welcome to PT Remix!</h1>
-  <div>
-    <p>PT Remix builds your physical therapy routine based on your injury, time 
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+  <h1 class="card-title">Welcome to PT Remix!</h1>
+  <div class="row">
+    <div class="col-9">PT Remix builds your physical therapy routine based on your injury, time 
       available, and whether or not you have equipment on hand. It doesn't replace 
       visits to your phyiscal therapist, but will help you get through your exercises 
-      at home.</p>
+      at home.
+    </div>
   </div>
 
   <div>
@@ -26,6 +30,9 @@
         <input type="submit" name="login" value="Log In">
         <input type="submit" name="register" value="Register">
     </form>
-    {% endif %}
+   {% endif %}
   </div>
+  </div>
+  </div>
+</div>
 {% endblock %}

@@ -4,17 +4,28 @@
 {% block title %}PT Remix - All exercises{% endblock %}
 
 {% block body %}
-    <h1>All Exercises</h1>
-
-    <ul>
+<div class="container-fluid">
+    <div class="card">
+        <h1 class="card-title routine-title">All Exercises</h1>
+        <div class="card-body">
+        <ul>
         {% for exercise in exercises %}
-        <li>
-            {{ exercise.name }}<br>
-            Description: {{ exercise.description }}<br>
-            Duration: {{ exercise.duration }}<br>
-            Max reps: {{ exercise.max_reps }}<br>
-            <img src="{{ exercise.img }}"><br>
-        </li>
+        <div class="card"></div>
+            <h2 class="card-title exercise-title">{{ exercise.name }}</h2>
+            <div class="card=body">
+                <div class="row">
+                    <div class="col-5 ex-description">
+                    Description: {{ exercise.description }}
+                    <div class="ex-reps">Max reps: {{exercise.max_reps }}</div>
+                    </div>
+                    <div class="col-7">
+                        <img src="{{ exercise.img }}" class="img-fluid img-responsive"><br>
+                    </div>
+            </div>
         {% endfor %}
-    </ul>
+        </div>
+        </ul>
+        </div>
+    </div>
+</div>
     {% endblock %}

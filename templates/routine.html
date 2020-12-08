@@ -4,18 +4,6 @@
 {% block title %}PT Remix - Your routine{% endblock %}
 
 {% block body %}
-<!-- <style>
-    .ex-reps {
-        margin-top: 25px
-    }
-    /* .selected {
-        color: yellow;
-    } */
-    /* .img-fluid {
-        max-width: 500px;
-        height: auto;
-    } */
-</style> -->
 <div class="container-fluid">
     <div class="card">
     <h1 class="card-title routine-title">Your Routine - {{ date.strftime('%m/%d/%Y') }}</h1>
@@ -28,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-5 ex-description">
-                Description: {{ exercise.description }}
+                    Description: {{ exercise.description }}
                 <div class="ex-reps">Reps: {{exercise.reps }}</div>
                 <div><label>How did this exercise go?</label></div>
                 <div class="btn-group row">
@@ -46,7 +34,7 @@
             <!-- <p>Max reps: {{ exercise.max_reps }}</p> -->
             <!-- <p>Exercise ID: {{exercise.exercise_id }}</p> -->
             <div class="col-7">
-                <img src="{{ exercise.img }}" class="img-fluid img-responsive" alt="Responsive image"></p>
+                <img src="{{ exercise.img }}" class="img-fluid img-responsive" alt="Responsive image">
                 </div>
             </div>
             
