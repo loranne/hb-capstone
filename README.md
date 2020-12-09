@@ -2,6 +2,23 @@
 
 ## PT remix 
 
+A physical therapy home companion that allows users to generate a routine of their assigned exercises. Routine generator bases decisions on the following constraints:
+
+- injury/condition being treated
+- length of time for routine
+- user focus for exercises (strength, endurance, balance, and flexibility)
+- whether user has equipment necessary
+
+Exercises have set relationships with injuries in the database, narrowing down the pool from which the routine generator can choose.
+
+Routine pages feature detailed descriptions of each exercise, number of reps, and visual aids, along with feedback buttons to record user experience of each exercise within the routine.
+
+Exercises are tied to routines by an association table. Originally, this had just the IDs for routine and exercise (plus primary key), but as I expanded the project, the association table became the logical place to store data about a specific instance of an exercise as it applied to one routine: in particular, how many reps of that exercise were assigned in that routine, and the user's experience of that exercise (in terms of whether it caused them pain).
+
+Future considerations include adding another user type for physical therapists, who would then be connected to core user type. PTs could assign and tweak details about exercises to better benefit their patients. 
+
+## Planning phase
+
 Would allow users to input variables like time and equipment available, pain levels/other movement restrictions, and generate a physical therapy routine for the day. Ideally would feature visual aids, and have access for therapist to add/modify exercises on their end (not likely to happen with v. 1). 
 
 *Things I'll need/features to consider:*
@@ -9,17 +26,3 @@ Would allow users to input variables like time and equipment available, pain lev
 - or way for user to input exercise details
 - Timer
 - Visual representations of each exercise and equipment item
-
-## Cosplay tracker
-
-Cosplanner already exists, but looks like it's no longer supported on Android? This would do similar things, without any social angle. User can upload reference photos, keep a budget, break tasks down into "find, build, make" type categories, and set a calendar with deadlines for different stages. Also want functionality for expanding on an existing project even after it's marked completed. In a perfect world, could also help select cosplay project, if I can get the right API with characters. Support for mash-ups.
-
-*Things I'll need/features to consider:*
-- Investigate Fandom/Wikia API as a way to get reference photos and character data
-- Calendar and budget APIs
-- Lots of forms
-- To-do list
-- Photo uploading
-
-
-404 image credit: @visuals via Unsplash: https://unsplash.com/photos/JpTY4gUviJM
