@@ -151,6 +151,23 @@ def create_injury_type():
         location="wrist")
     db.session.add(inj3)
 
+    inj4 = InjuryType(name="Shin splints",
+        location="leg")
+    db.session.add(inj4)
+
+    inj5 = InjuryType(name="Lower back pain",
+        location="lower back")
+    db.session.add(inj5)
+    
+    inj6 = InjuryType(name="Tennis elbow",
+        location="elbow")
+    db.session.add(inj6)
+    
+    inj7 = InjuryType(name="Achilles tendinitis",
+        location="leg")
+    db.session.add(inj7)
+
+
     db.session.commit()
 
 def create_routine():

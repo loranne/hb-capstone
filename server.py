@@ -17,7 +17,7 @@ import utilities
 app = Flask(__name__)
 # need to adjust this one
 app.secret_key = "SECRETKEY"
-app.debug = True
+app.debug = False
 toolbar = DebugToolbarExtension(app)
 # secrets.token_urlsafe(16)
 app.jinja_env.undefined = StrictUndefined
