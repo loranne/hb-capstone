@@ -1,6 +1,4 @@
-# hb-capstone planning phase
-
-## PT remix 
+# PT Remix - Hackbright Academy capstone 2020 
 
 A physical therapy home companion that allows users to generate a routine of their assigned exercises. Routine generator bases decisions on the following constraints:
 
