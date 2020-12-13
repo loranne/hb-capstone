@@ -1,5 +1,9 @@
 # PT Remix - Hackbright Academy capstone 2020 
 
+Not yet deployed. 
+
+##### [View a short demo here!](https://youtu.be/YWSyoudovsI)
+
 A physical therapy home companion that allows users to generate a routine of their assigned exercises. Routine generator bases decisions on the following constraints:
 
 - injury/condition being treated
